@@ -51,7 +51,7 @@ export function Card({
       >
         {media && (
           <div
-            className={`w-full ${snap === "left" ? "xl:w-2/5" : ""} ${mediaClassName}`.trim()}
+            className={`w-full ${snap === "left" ? "xl:w-3/5" : ""} ${mediaClassName}`.trim()}
           >
             {media}
           </div>

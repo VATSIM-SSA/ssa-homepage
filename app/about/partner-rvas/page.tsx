@@ -1,9 +1,25 @@
+"use client";
+
 import { Header } from "@/components/ui/header";
 import { Image } from "@/components/ui/image";
-import { RVAS } from "@/components/ui/rvas";
-import RVAS_DATA from "@/assets/rvas.json";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { useRvas } from "@/hooks/useRvas";
+
+const rvaImageOverrides: Record<string, string> = {
+  "flysafair virtual": "flysafari-virtual",
+};
+
+function getRvaImageSrc(name: string) {
+  const normalizedName = name.trim().toLowerCase();
+  const imageName =
+    rvaImageOverrides[normalizedName] ?? normalizedName.replace(/\s+/g, "-");
+
+  return `/rvas/${imageName}.png`;
+}
 
 export default function PilotRVAS() {
+  const { rvas, isLoading, error } = useRvas();
+
   return (
     <div className="px-4 relative flex flex-col min-h-dvh w-full items-center justify-center overflow-hidden bg-zinc-950">
       <Image
@@ -50,22 +66,96 @@ export default function PilotRVAS() {
 
         <Header text="Tier 1" />
 
-        <div className="grid lg:grid-cols-2 grid-cols-1 w-full gap-6">
-          {RVAS_DATA.data
+        <div className="flex flex-col w-full gap-6 mb-8">
+          {isLoading && <p className="text-zinc-300">Loading rVAs...</p>}
+          {!isLoading && error && <p className="text-red-300">Hmm. We encountered an unexpected error. If this keeps happening, please contact a website administrator.</p>}
+
+          {!isLoading &&
+            !error &&
+            rvas
             .filter((rva) => rva.tier === 1)
             .map((rva) => (
-              <RVAS key={rva.name} name={rva.name} link={rva.link} />
+              <Card
+                onClick={() => window.open(rva.site, "_blank")}
+                className="cursor-pointer transition-all duration-200"
+                snap="left"
+                media={
+                  <Image
+                    src={getRvaImageSrc(rva.name)}
+                    alt={`${rva.name} banner`}
+                    className="w-full aspect-video object-contain"
+                    fallbackContent="Event image unavailable"
+                  />
+                }
+                mediaClassName="aspect-video w-full p-4"
+              >
+                <CardContent className="flex flex-col">
+                  <CardHeader>{rva.name}</CardHeader>
+                  <p className="text-zinc-400 text-base">{rva.description}</p>
+                  {rva.signup && (
+                    <p
+                      className="text-white text-sm hover:underline cursor-pointer"
+                      onClick={() => window.open(rva.signup, "_blank")}
+                    >
+                      Sign Up →
+                    </p>
+                  )}
+                </CardContent>
+              </Card>
             ))}
+
+          {!isLoading &&
+            !error &&
+            rvas.filter((rva) => rva.tier === 1).length === 0 && (
+              <p className="text-zinc-400">No Tier 1 rVAs found.</p>
+            )}
         </div>
 
         <Header text="Tier 2" />
 
-        <div className="grid lg:grid-cols-3 grid-cols-2 w-full gap-6">
-          {RVAS_DATA.data
+        <div className="flex flex-col w-full gap-6 mb-8">
+          {isLoading && <p className="text-zinc-300">Loading rVAs...</p>}
+          {!isLoading && error && <p className="text-red-300">Hmm. We encountered an unexpected error. If this keeps happening, please contact a website administrator.</p>}
+
+          {!isLoading &&
+            !error &&
+            rvas
             .filter((rva) => rva.tier === 2)
             .map((rva) => (
-              <RVAS key={rva.name} name={rva.name} link={rva.link} />
+              <Card
+                onClick={() => window.open(rva.site, "_blank")}
+                className="cursor-pointer transition-all duration-200"
+                snap="left"
+                media={
+                  <Image
+                    src={getRvaImageSrc(rva.name)}
+                    alt={`${rva.name} banner`}
+                    className="w-full aspect-video object-contain"
+                    fallbackContent="Event image unavailable"
+                  />
+                }
+                mediaClassName="aspect-video w-full p-4"
+              >
+                <CardContent className="flex flex-col">
+                  <CardHeader>{rva.name}</CardHeader>
+                  <p className="text-zinc-400 text-base">{rva.description}</p>
+                  {rva.signup && (
+                    <p
+                      className="text-white text-sm hover:underline cursor-pointer"
+                      onClick={() => window.open(rva.signup, "_blank")}
+                    >
+                      Sign Up →
+                    </p>
+                  )}
+                </CardContent>
+              </Card>
             ))}
+
+          {!isLoading &&
+            !error &&
+            rvas.filter((rva) => rva.tier === 2).length === 0 && (
+              <p className="text-zinc-400">No Tier 2 rVAs found.</p>
+            )}
         </div>
       </section>
     </div>

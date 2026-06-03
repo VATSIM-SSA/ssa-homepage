@@ -1,20 +1,13 @@
+"use client";
+
 import { Profile } from "@/components/ui/profile";
 import { Header } from "@/components/ui/header";
 import { Image } from "@/components/ui/image";
-import staff from "@/assets/staff.json";
-
-type StaffMember = {
-  id: string;
-  name: string;
-  role: string;
-  email?: string;
-  cid?: string;
-};
-
-type StaffGroups = Record<string, StaffMember[]>;
+import { useStaff } from "@/hooks/useStaff";
 
 export default function Staff() {
-  const staffGroups = Object.entries(staff as StaffGroups);
+  const { staffGroups, isLoading, error } = useStaff();
+  const groupedStaff = Object.entries(staffGroups);
 
   return (
     <div className="px-4 relative flex flex-col min-h-dvh w-full items-center justify-center overflow-hidden bg-zinc-950">
@@ -36,7 +29,15 @@ export default function Staff() {
       </section>
 
       <section className="relative z-10 flex w-full max-w-7xl flex-col gap-6 items-center justify-center px-6 mx-12 py-16 text-center">
-        {staffGroups.map(([groupName, members]) => (
+        {isLoading && <p className="text-zinc-300">Loading staff...</p>}
+
+        {!isLoading && error && <p className="text-red-300">{error}</p>}
+
+        {!isLoading && !error && groupedStaff.length === 0 && (
+          <p className="text-zinc-400">No staff data found.</p>
+        )}
+
+        {!isLoading && !error && groupedStaff.map(([groupName, members]) => (
           <div key={groupName} className="contents">
             <Header text={groupName} className="mt-4" />
 

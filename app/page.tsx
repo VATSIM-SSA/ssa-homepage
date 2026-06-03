@@ -1,6 +1,5 @@
 "use client";
 
-import { SquareArrowOutUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -9,9 +8,16 @@ import {
   CardTimestamp,
 } from "@/components/ui/card";
 import { Header } from "@/components/ui/header";
+import { Image } from "@/components/ui/image";
 import { useEvents, type EventBooking } from "@/hooks/useEvents";
 
 function parseEventDate(value: string) {
+  const parsed = new Date(value);
+
+  if (!Number.isNaN(parsed.getTime())) {
+    return parsed;
+  }
+
   return new Date(value.replace(" ", "T") + "Z");
 }
 
@@ -31,21 +37,21 @@ function formatEventWindow(start: string, end: string) {
 }
 
 function getBookingTypeBadge(event: EventBooking) {
-  if (event.exam) {
+  if (event.type === "exam") {
     return {
       label: "Exam",
       className: "bg-rose-500/20 text-rose-200 ring-1 ring-rose-400/30",
     };
   }
 
-  if (event.event) {
+  if (event.type === "event") {
     return {
       label: "Event",
       className: "bg-sky-500/20 text-sky-200 ring-1 ring-sky-400/30",
     };
   }
 
-  if (event.training) {
+  if (event.type === "training") {
     return {
       label: "Training",
       className: "bg-amber-500/20 text-amber-200 ring-1 ring-amber-400/30",
@@ -59,15 +65,19 @@ function getBookingTypeBadge(event: EventBooking) {
 }
 
 function getBookingDescription(event: EventBooking) {
-  if (event.exam) {
+  if (event.description) {
+    return event.description;
+  }
+
+  if (event.type === "exam") {
     return "Help our students pass their exams by flying during their practical assessments.";
   }
 
-  if (event.event) {
+  if (event.type === "event") {
     return "Join us for an exciting event and be part of the action.";
   }
 
-  if (event.training) {
+  if (event.type === "training") {
     return "Support our training efforts by flying during our students' training sessions.";
   }
 
@@ -76,10 +86,10 @@ function getBookingDescription(event: EventBooking) {
 
 export default function Home() {
   const { events, isLoading, error } = useEvents();
-  const upcomingEvents = events.sort(
+  const upcomingEvents = [...events].sort(
     (left, right) =>
-      parseEventDate(left.time_start).getTime() -
-      parseEventDate(right.time_start).getTime(),
+      parseEventDate(left.startTime).getTime() -
+      parseEventDate(right.startTime).getTime(),
   );
 
   return (
@@ -165,18 +175,18 @@ export default function Home() {
       </section>
 
       <section className="relative z-10 flex w-full max-w-7xl flex-col gap-6 items-center justify-center px-6 mx-12 py-16 text-center">
-        <Header text="Upcoming Bookings" />
+        <Header text="Upcoming Events" />
 
         <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-8">
           {isLoading && (
-            <p className="text-zinc-300">Loading upcoming bookings...</p>
+            <p className="text-zinc-300">Loading upcoming events...</p>
           )}
 
           {!isLoading && error && <p className="text-red-300">{error}</p>}
 
           {!isLoading && !error && upcomingEvents.length === 0 && (
             <p className="text-zinc-400">
-              Hmm. Unfortunately, there are no upcoming bookings at the moment.
+              Hmm. Unfortunately, there are no upcoming events at the moment.
             </p>
           )}
 
@@ -184,24 +194,34 @@ export default function Home() {
             !error &&
             upcomingEvents.map((event) => {
               const badge = getBookingTypeBadge(event);
+              const destination = event.link || "https://cc.vatssa.com/booking";
 
               return (
                 <Card key={event.id} onClick={() =>
-                        window.open("https://cc.vatssa.com/booking", "_blank")
-                      } className="cursor-pointer transition-all duration-200">
+                        window.open(destination, "_blank")
+                      } className="cursor-pointer transition-all duration-200"
+                      snap="top"
+                        media={
+                          <Image
+                            src={event.banner || undefined}
+                            alt={`${event.title} banner`}
+                            className="aspect-video w-full object-cover"
+                            fallbackContent="Event image unavailable"
+                          />
+                        }>
                   <CardContent>
                     <CardHeader>
-                      {event.callsign}
+                      {event.title}
                     </CardHeader>
                     <CardTimestamp>
-                      {formatEventWindow(event.time_start, event.time_end)} UTC
+                      {formatEventWindow(event.startTime, event.endTime)} UTC
                     </CardTimestamp>
-                    <p
+                    {/* <p
                       className={`rounded-full px-4 py-1 text-sm font-medium ${badge.className}`}
                     >
                       {badge.label}
-                    </p>
-                    <p className="text-zinc-400 text-base">
+                    </p> */}
+                    <p className="text-zinc-300 text-base">
                       {getBookingDescription(event)}
                     </p>
                     <p className="text-white text-sm hover:underline cursor-pointer">Read More → </p>
