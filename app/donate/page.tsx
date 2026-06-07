@@ -1,7 +1,4 @@
-import { Profile } from "@/components/ui/profile";
-import { Header } from "@/components/ui/header";
 import { Image } from "@/components/ui/image";
-import staff from "@/assets/staff.json";
 
 type StaffMember = {
   id: string;
@@ -14,8 +11,6 @@ type StaffMember = {
 type StaffGroups = Record<string, StaffMember[]>;
 
 export default function Donate() {
-  const staffGroups = Object.entries(staff as StaffGroups);
-
   return (
     <div className="px-4 relative flex flex-col min-h-dvh w-full items-center justify-center overflow-hidden bg-zinc-950">
       <Image
