@@ -10,6 +10,8 @@ import {
 import { Header } from "@/components/ui/header";
 import { Image } from "@/components/ui/image";
 import { useEvents, type EventBooking } from "@/hooks/useEvents";
+import { useBookings } from "@/hooks/useBookings";
+import { useNews } from "@/hooks/useNews";
 
 function parseEventDate(value: string) {
   const parsed = new Date(value);
@@ -36,35 +38,40 @@ function formatEventWindow(start: string, end: string) {
   }).formatRange(startDate, endDate);
 }
 
-function getBookingTypeBadge(event: EventBooking) {
-  if (event.type === "exam") {
-    return {
-      label: "Exam",
-      className: "bg-rose-500/20 text-rose-200 ring-1 ring-rose-400/30",
-    };
+function formatNewsDate(value: string) {
+  const parsed = new Date(value);
+
+  if (Number.isNaN(parsed.getTime())) {
+    return "Unknown date";
   }
 
-  if (event.type === "event") {
-    return {
-      label: "Event",
-      className: "bg-sky-500/20 text-sky-200 ring-1 ring-sky-400/30",
-    };
-  }
-
-  if (event.type === "training") {
-    return {
-      label: "Training",
-      className: "bg-amber-500/20 text-amber-200 ring-1 ring-amber-400/30",
-    };
-  }
-
-  return {
-    label: "Booking",
-    className: "bg-emerald-500/20 text-emerald-200 ring-1 ring-emerald-400/30",
-  };
+  return new Intl.DateTimeFormat("en-ZA", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(parsed);
 }
 
-function getBookingDescription(event: EventBooking) {
+function formatBookingDate(start: string, end: string) {
+  const startDate = parseEventDate(start);
+
+  if (!end) {
+    return new Intl.DateTimeFormat("en-ZA", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      timeZone: "UTC",
+      hour12: false,
+    }).format(startDate);
+  }
+
+  return formatEventWindow(start, end) + " UTC";
+}
+
+function getEventDescription(event: EventBooking) {
   if (event.description) {
     return event.description;
   }
@@ -86,6 +93,12 @@ function getBookingDescription(event: EventBooking) {
 
 export default function Home() {
   const { events, isLoading, error } = useEvents();
+  const {
+    bookings,
+    isLoading: isBookingsLoading,
+    error: bookingsError,
+  } = useBookings(8);
+  const { news, isLoading: isNewsLoading, error: newsError } = useNews(4);
   const upcomingEvents = [...events].sort(
     (left, right) =>
       parseEventDate(left.startTime).getTime() -
@@ -154,17 +167,14 @@ export default function Home() {
               bibendum erat commodo sit amet. Sed viverra metus eget nulla
               bibendum euismod. Sed lacinia ante ac lacus porttitor scelerisque.
               Quisque luctus risus leo, ullamcorper maximus lorem aliquam non.
-              Maecenas volutpat purus non dui congue, non maximus velit tempus.
-              Phasellus et lacus luctus, venenatis mauris vitae, interdum quam.
-              Phasellus vel mauris eget lorem placerat aliquam ac quis mauris.
-              Morbi risus purus, tempor non consectetur vel, imperdiet id neque.
-              Nullam cursus tempus leo sit amet semper. Pellentesque varius
-              purus quis bibendum dignissim. Pellentesque dapibus, massa eget
-              vulputate hendrerit, risus est rhoncus dui, a pharetra metus lorem
-              et arcu.
+              Mauris malesuada velit euismod dui placerat, in aliquet tellus
+              volutpat. Cras sit amet sapien ex. Sed dignissim sapien nunc, eu
+              bibendum erat commodo sit amet. Sed viverra metus eget nulla
+              bibendum euismod. Sed lacinia ante ac lacus porttitor scelerisque.
+              Quisque luctus risus leo, ullamcorper maximus lorem aliquam non.
             </p>
           </div>
-          <div className="h-full xl:flex justify-center items-center hidden xl:w-1/2">
+          <div className="h-full xl:flex justify-center items-center hidden w-1/2">
             <img
               src="/images/ssa-firs.svg"
               alt="Upcoming Event"
@@ -172,6 +182,58 @@ export default function Home() {
             />
           </div>
         </div>
+      </section>
+
+      <section className="relative z-10 flex w-full max-w-7xl flex-col gap-6 items-center justify-center px-6 mx-12 py-16 text-center">
+        <Header text="Latest News" />
+
+        <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-8">
+          {isNewsLoading && (
+            <p className="text-zinc-300">Loading latest news...</p>
+          )}
+
+          {!isNewsLoading && newsError && (
+            <p className="text-red-300">{newsError}</p>
+          )}
+
+          {!isNewsLoading && !newsError && news.length === 0 && (
+            <p className="text-zinc-400">
+              Hmm. There are no news posts available right now.
+            </p>
+          )}
+
+          {!isNewsLoading &&
+            !newsError &&
+            news.slice(0, 4).map((post) => {
+              const destination =
+                post.url || "https://community.vatssa.com/latest";
+
+              return (
+                <Card
+                  key={post.id}
+                  onClick={() => window.open(destination, "_blank")}
+                  className="cursor-pointer transition-all duration-200"
+                >
+                  <CardContent>
+                    <CardHeader>{post.title}</CardHeader>
+                    <CardTimestamp>
+                      by {post.author} - {formatNewsDate(post.publishedAt)}
+                    </CardTimestamp>
+                    <p className="text-zinc-300 text-base overflow-hidden [display:-webkit-box] [-webkit-line-clamp:3] [-webkit-box-orient:vertical]">
+                      {post.excerpt}
+                    </p>
+                    <a className="text-white text-sm hover:underline cursor-pointer">
+                      Read More →
+                    </a>
+                  </CardContent>
+                </Card>
+              );
+            })}
+        </div>
+
+        <a className="text-neutral-400 text-sm hover:underline cursor-pointer">
+          View All →
+        </a>
       </section>
 
       <section className="relative z-10 flex w-full max-w-7xl flex-col gap-6 items-center justify-center px-6 mx-12 py-16 text-center">
@@ -193,40 +255,76 @@ export default function Home() {
           {!isLoading &&
             !error &&
             upcomingEvents.map((event) => {
-              const badge = getBookingTypeBadge(event);
               const destination = event.link || "https://cc.vatssa.com/booking";
 
               return (
-                <Card key={event.id} onClick={() =>
-                        window.open(destination, "_blank")
-                      } className="cursor-pointer transition-all duration-200"
-                      snap="top"
-                        media={
-                          <Image
-                            src={event.banner || undefined}
-                            alt={`${event.title} banner`}
-                            className="aspect-video w-full object-cover"
-                            fallbackContent="Event image unavailable"
-                          />
-                        }>
+                <Card
+                  key={event.id}
+                  onClick={() => window.open(destination, "_blank")}
+                  className="cursor-pointer transition-all duration-200"
+                  snap="top"
+                  media={
+                    <Image
+                      src={event.banner || undefined}
+                      alt={`${event.title} banner`}
+                      className="aspect-video w-full object-cover"
+                      fallbackContent="Event image unavailable"
+                    />
+                  }
+                >
                   <CardContent>
-                    <CardHeader>
-                      {event.title}
-                    </CardHeader>
+                    <CardHeader>{event.title}</CardHeader>
                     <CardTimestamp>
                       {formatEventWindow(event.startTime, event.endTime)} UTC
                     </CardTimestamp>
-                    {/* <p
-                      className={`rounded-full px-4 py-1 text-sm font-medium ${badge.className}`}
-                    >
-                      {badge.label}
-                    </p> */}
-                    <p className="text-zinc-300 text-base">
-                      {getBookingDescription(event)}
+                    <p className="text-zinc-300 text-base overflow-hidden h-12 overflow-y-hidden">
+                      {getEventDescription(event)}
                     </p>
-                    <p className="text-white text-sm hover:underline cursor-pointer">Read More → </p>
+                    <p className="text-white text-sm hover:underline cursor-pointer">
+                      Read More →{" "}
+                    </p>
                   </CardContent>
                 </Card>
+              );
+            })}
+        </div>
+      </section>
+
+      <section className="relative z-10 flex w-full max-w-7xl flex-col gap-6 items-center justify-center px-6 mx-12 py-16 text-center">
+        <Header text="Upcoming Bookings" />
+
+        <div className="grid grid-cols-1 w-full gap-2">
+          {isBookingsLoading && (
+            <p className="text-zinc-300">Loading upcoming bookings...</p>
+          )}
+
+          {!isBookingsLoading && bookingsError && (
+            <p className="text-red-300">{bookingsError}</p>
+          )}
+
+          {!isBookingsLoading && !bookingsError && bookings.length === 0 && (
+            <p className="text-zinc-400">
+              Hmm. There are no upcoming bookings right now.
+            </p>
+          )}
+
+          {!isBookingsLoading &&
+            !bookingsError &&
+            bookings.map((booking) => {
+              const title = booking.callsign || booking.name || "Booking";
+
+              return (
+                <div
+                  key={booking.id}
+                  className="transition-all duration-200 px-6 py-3 flex w-full flex-row justify-between items-center overflow-hidden rounded-xl bg-zinc-800"
+                >
+                  <p className="text-left w-full text-lg font-semibold text-white">
+                    {title}
+                  </p>
+                  <p className="text-zinc-400 flex w-full flex-col items-end justify-center text-left">
+                    {formatBookingDate(booking.time_start, booking.time_end)}
+                  </p>
+                </div>
               );
             })}
         </div>

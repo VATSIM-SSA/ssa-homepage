@@ -1,4 +1,5 @@
 import { Image } from "@/components/ui/image";
+import { Button } from "@/components/ui/button";
 
 type StaffMember = {
   id: string;
@@ -32,7 +33,7 @@ export default function Donate() {
       </section>
 
       <section className="relative z-10 flex w-full max-w-7xl flex-col gap-6 items-center justify-center px-6 mx-12 py-16 text-center">
-        <div className="bg-zinc-800/50 w-full flex flex-col gap-10 items-center p-10 rounded-xl">
+        <div className="bg-zinc-800/50 w-full flex flex-col gap-8 items-center p-10 rounded-xl">
           <div className="w-full grid lg:grid-cols-2 grid-cols-1 gap-10 lg:gap-20">
             <div className="flex flex-col gap-4">
               <h1 className="text-left text-2xl md:text-4xl text-white font-bold">
@@ -87,28 +88,21 @@ export default function Donate() {
           </div>
           <div className="w-full h-px bg-zinc-700/50" />
           <div className="flex flex-col gap-2 items-center">
-          <p className="text-white text-center md:text-left">
-            To donate, please visit our
-            <a
-              href="https://opencollective.com/vatssa-division"
-              className="text-blue-500 underline"
-            >
-              {" "}
-              Open Collective
-            </a>{" "}
-            page.
-          </p>
+            <Button variant="filled" href="https://eaip2.vatssa.com/">
+              Donate Here
+            </Button>
 
-          <p className="text-zinc-400 text-center md:text-left">
-            To read the full policy, {" "}
-            <a
-              href="https://opencollective.com/vatssa-division"
-              className="text-blue-500 underline"
-            >
-              click here
-            </a>
-            .
-          </p></div>
+            <p className="mt-2 text-zinc-400 text-center md:text-left">
+              To read the full policy, {" "}
+              <a
+                href="https://opencollective.com/vatssa-division"
+                className="text-blue-500 underline"
+              >
+                click here
+              </a>
+              .
+            </p>
+          </div>
         </div>
       </section>
     </div>
