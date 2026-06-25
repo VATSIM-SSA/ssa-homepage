@@ -1,16 +1,31 @@
-@import 'tailwindcss'; 
+@import 'tailwindcss';
 
 :root {
-  --primary-colour: #ffd230;
-  --primary-light-colour: #ffe06f;
-  --scrollbar-track-color: #232E33;
-  --scrollbar-thumb-color: #ffd230;
+  --primary-colour: #0197B0;
+  --primary-light-colour: #7BD758;
+  --secondary-colour: #7BD758;
+  --scrollbar-track-color: #071e23;
+  --scrollbar-thumb-color: #0197B0;
   --scrollbar-size: 5px;
 }
 
 @theme {
   --color-primary: var(--primary-colour);
   --color-primary-light: var(--primary-light-colour);
+  --color-secondary: var(--secondary-colour);
+
+  /* Remap zinc scale to VATSSA dark teal palette */
+  --color-zinc-950: #02141a;
+  --color-zinc-900: #051d23;
+  --color-zinc-800: #07262c;
+  --color-zinc-700: #0b323c;
+  --color-zinc-600: #10444f;
+  --color-zinc-500: #165868;
+  --color-zinc-400: #2d7f94;
+  --color-zinc-300: #5da5b8;
+  --color-zinc-200: #9cc8d5;
+  --color-zinc-100: #cde4ea;
+  --color-zinc-50:  #e5f2f5;
 }
 
 body {

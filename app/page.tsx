@@ -107,7 +107,7 @@ export default function Home() {
       </div>
 
       <section className="h-[100vh] relative z-10 flex w-full max-w-7xl flex-col items-center justify-center px-6 mx-4 py-16 text-center">
-        <p className="mb-4 text-sm font-semibold uppercase tracking-[0.35em] text-amber-300">
+        <p className="mb-4 text-sm font-semibold uppercase tracking-[0.35em] text-secondary">
           VATSIM Sub-Sahara Africa
         </p>
         <h1 className="max-w-4xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl">
