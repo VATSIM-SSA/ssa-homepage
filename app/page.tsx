@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Header } from "@/components/ui/header";
 import { Image } from "@/components/ui/image";
+import { LiveMap } from "@/components/map/live-map";
 import { useEvents, type EventBooking } from "@/hooks/useEvents";
 
 function parseEventDate(value: string) {
@@ -172,6 +173,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <LiveMap />
 
       <section className="relative z-10 flex w-full max-w-7xl flex-col gap-6 items-center justify-center px-6 mx-12 py-16 text-center">
         <Header text="Upcoming Events" />

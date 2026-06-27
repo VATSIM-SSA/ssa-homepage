@@ -72,3 +72,123 @@ body::-webkit-scrollbar-thumb {
                      var(--scrollbar-track-color);
   }
 }
+
+/* ---- Leaflet (VATSSA live map) dark theme ---- */
+.leaflet-container {
+  background: #02141a;
+  font-family: inherit;
+  font-size: 12px;
+}
+
+.leaflet-bar a,
+.leaflet-bar a:hover {
+  background: #07262c;
+  color: #cde4ea;
+  border-color: #0b323c;
+}
+
+.leaflet-bar a:hover {
+  background: #0b323c;
+}
+
+.leaflet-control-attribution {
+  background: rgba(2, 20, 26, 0.7) !important;
+  color: #5da5b8 !important;
+}
+
+.leaflet-control-attribution a {
+  color: #9cc8d5 !important;
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: #051d23;
+  color: #e5f2f5;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(1, 151, 176, 0.35);
+}
+
+.leaflet-popup-content {
+  margin: 10px 12px;
+}
+
+.leaflet-popup-close-button {
+  color: #5da5b8 !important;
+}
+
+.leaflet-tooltip.leaflet-tooltip-top {
+  background: #02141a;
+  color: #cde4ea;
+  border: 1px solid rgba(1, 151, 176, 0.4);
+  box-shadow: none;
+  font-weight: 600;
+}
+
+.leaflet-tooltip-top::before {
+  border-top-color: rgba(1, 151, 176, 0.4);
+}
+
+.map-popup .mp-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.map-popup .mp-freq {
+  font-size: 13px;
+  font-weight: 700;
+  color: #7bd758;
+  margin-top: 2px;
+}
+
+.map-popup .mp-sub {
+  color: #7bd758;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.map-popup .mp-row {
+  color: #cde4ea;
+  margin-top: 2px;
+}
+
+.map-popup .mp-type {
+  color: #9cc8d5;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 11px;
+}
+
+.map-popup .mp-name {
+  color: #5da5b8;
+  margin-top: 4px;
+  font-size: 11px;
+}
+
+.vatssa-atc-label {
+  width: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+}
+
+.atc-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  transform: translate(-50%, -50%);
+  background: rgba(2, 20, 26, 0.85);
+  border: 1px solid rgba(123, 215, 88, 0.6);
+  color: #cde4ea;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 9999px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.atc-pill em {
+  font-style: normal;
+  color: #7bd758;
+  font-weight: 600;
+}
