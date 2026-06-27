@@ -114,8 +114,7 @@ export default function Home() {
           Welcome to VATSSA.
         </h1>
         <p className="mt-6 max-w-2xl text-base leading-7 text-zinc-200 sm:text-lg">
-          Some sort of catchy, whitty, and informative description about VATSSA
-          and what we do. This is just placeholder text for now.
+          VATSSA is the home of virtual aviation across Sub Saharan Africa, offering ATC training, realistic operations, and a welcoming community for pilots and controllers of every experience level.
         </p>
         <div className="mt-8 flex items-center gap-3 flex-row">
           <Button variant="filled" href="https://eaip2.vatssa.com/">
