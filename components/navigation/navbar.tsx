@@ -123,9 +123,12 @@ export default function Navbar() {
               </DropdownItem>
               <DropdownSeperator />
               <DropdownItem
-                onClick={() => router.push("/controllers/active-roster")}
+                className="flex items-center gap-1"
+                onClick={() =>
+                  (window.location.href = "https://cc.vatssa.com/")
+                }
               >
-                Active Roster
+                Active Roster <ExternalLink className="h-4 w-auto" />
               </DropdownItem>
               <DropdownSeperator />
               <DropdownItem
@@ -310,12 +313,13 @@ export default function Navbar() {
                 </Button>
                 <Button
                   variant="menu"
+                  className="flex items-center gap-2"
                   onClick={() => {
                     setShowMobileMenu(false);
-                    router.push("/controllers/active-roster");
+                    window.location.href = "https://cc.vatssa.com/";
                   }}
                 >
-                  Active Roster
+                  Active Roster <ExternalLink className="h-4 w-auto" />
                 </Button>
                 <Button
                   variant="menu"

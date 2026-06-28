@@ -1,98 +1,10 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTimestamp,
-} from "@/components/ui/card";
 import { Header } from "@/components/ui/header";
-import { Image } from "@/components/ui/image";
 import { LiveMap } from "@/components/map/live-map";
-import { useEvents, type EventBooking } from "@/hooks/useEvents";
-
-function parseEventDate(value: string) {
-  const parsed = new Date(value);
-
-  if (!Number.isNaN(parsed.getTime())) {
-    return parsed;
-  }
-
-  return new Date(value.replace(" ", "T") + "Z");
-}
-
-function formatEventWindow(start: string, end: string) {
-  const startDate = parseEventDate(start);
-  const endDate = parseEventDate(end);
-
-  return new Intl.DateTimeFormat("en-ZA", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    timeZone: "UTC",
-    hour12: false,
-  }).formatRange(startDate, endDate);
-}
-
-function getBookingTypeBadge(event: EventBooking) {
-  if (event.type === "exam") {
-    return {
-      label: "Exam",
-      className: "bg-rose-500/20 text-rose-200 ring-1 ring-rose-400/30",
-    };
-  }
-
-  if (event.type === "event") {
-    return {
-      label: "Event",
-      className: "bg-sky-500/20 text-sky-200 ring-1 ring-sky-400/30",
-    };
-  }
-
-  if (event.type === "training") {
-    return {
-      label: "Training",
-      className: "bg-amber-500/20 text-amber-200 ring-1 ring-amber-400/30",
-    };
-  }
-
-  return {
-    label: "Booking",
-    className: "bg-emerald-500/20 text-emerald-200 ring-1 ring-emerald-400/30",
-  };
-}
-
-function getBookingDescription(event: EventBooking) {
-  if (event.description) {
-    return event.description;
-  }
-
-  if (event.type === "exam") {
-    return "Help our students pass their exams by flying during their practical assessments.";
-  }
-
-  if (event.type === "event") {
-    return "Join us for an exciting event and be part of the action.";
-  }
-
-  if (event.type === "training") {
-    return "Support our training efforts by flying during our students' training sessions.";
-  }
-
-  return "This is a regular booking. Join us in supporting our members by flying during their bookings.";
-}
 
 export default function Home() {
-  const { events, isLoading, error } = useEvents();
-  const upcomingEvents = [...events].sort(
-    (left, right) =>
-      parseEventDate(left.startTime).getTime() -
-      parseEventDate(right.startTime).getTime(),
-  );
-
   return (
     <div className="px-4 relative flex flex-col min-h-dvh w-full items-center justify-center overflow-hidden bg-zinc-950">
       <img
@@ -131,43 +43,35 @@ export default function Home() {
         <Header text="About Us" />
 
         <div className="flex xl:flex-row flex-col w-full gap-12 items-center justify-center">
-          <div className="w-full xl:w-1/2 text-white flex flex-col items-start justify-start gap-2">
-            {/* <h1 className="font-semibold whitespace-nowrap text-base sm:text-xl md:text-3xl">Heading</h1> */}
+          <div className="w-full xl:w-1/2 text-white flex flex-col items-start justify-start gap-4">
             <p className="text-center xl:text-left">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris id
-              ultrices massa. Quisque quis justo sed augue volutpat pulvinar sit
-              amet sed ligula. Donec eu ante sed metus molestie dictum. Maecenas
-              vitae augue quis nisi molestie aliquet sed quis nunc. In eget mi
-              et sem rhoncus elementum a quis ligula. Sed sagittis dolor quis
-              hendrerit molestie. Curabitur eget sem a leo ornare varius et a
-              turpis. Integer sit amet mattis metus. Pellentesque luctus egestas
-              metus, sit amet ornare massa tincidunt vel. Donec efficitur velit
-              mauris, eget porta lorem convallis tincidunt. Curabitur a ante
-              quis libero vulputate pellentesque. Ut rhoncus arcu in lobortis
-              tempus. Donec blandit mauris nisl, non lacinia mi vulputate sit
-              amet. Proin congue magna lobortis nisi faucibus tristique vitae
-              sit amet velit. Integer efficitur orci a dui tincidunt gravida.
-              <br />
-              <br />
-              Mauris malesuada velit euismod dui placerat, in aliquet tellus
-              volutpat. Cras sit amet sapien ex. Sed dignissim sapien nunc, eu
-              bibendum erat commodo sit amet. Sed viverra metus eget nulla
-              bibendum euismod. Sed lacinia ante ac lacus porttitor scelerisque.
-              Quisque luctus risus leo, ullamcorper maximus lorem aliquam non.
-              Maecenas volutpat purus non dui congue, non maximus velit tempus.
-              Phasellus et lacus luctus, venenatis mauris vitae, interdum quam.
-              Phasellus vel mauris eget lorem placerat aliquam ac quis mauris.
-              Morbi risus purus, tempor non consectetur vel, imperdiet id neque.
-              Nullam cursus tempus leo sit amet semper. Pellentesque varius
-              purus quis bibendum dignissim. Pellentesque dapibus, massa eget
-              vulputate hendrerit, risus est rhoncus dui, a pharetra metus lorem
-              et arcu.
+              VATSSA is a community first. We are students and engineers,
+              real-world aviation professionals and complete beginners, united
+              by a love of flight. Whether you are flying long-haul into Lagos,
+              working approach into Nairobi, or learning your first
+              top-of-descent, there is a place for you here.
+            </p>
+            <p className="text-center xl:text-left">
+              We train and certify controllers from tower to oceanic, welcome
+              pilots filing in from across the globe, and bring the continent
+              together at events like our flagship Cross Africa. Structured
+              training carries members from first login to first clearance to
+              fully rated controller.
+            </p>
+            <p className="text-center xl:text-left">
+              Sub-Saharan Africa is one of the most dynamic regions on earth,
+              and its virtual skies deserve the same ambition as the real ones.
+              This is a home for everyone who has ever looked up at the African
+              sky and wanted to be part of it.
+            </p>
+            <p className="text-center xl:text-left text-lg font-semibold text-primary">
+              The African skies are open, no matter what.
             </p>
           </div>
           <div className="h-full xl:flex justify-center items-center hidden xl:w-1/2">
             <img
-              src="/images/ssa-firs.svg"
-              alt="Upcoming Event"
+              src="/images/ssa-airspace.png"
+              alt="Map of VATSSA airspace across Sub-Saharan Africa"
               className="aspect-square rounded-xl object-contain"
             />
           </div>
@@ -175,64 +79,6 @@ export default function Home() {
       </section>
 
       <LiveMap />
-
-      <section className="relative z-10 flex w-full max-w-7xl flex-col gap-6 items-center justify-center px-6 mx-12 py-16 text-center">
-        <Header text="Upcoming Events" />
-
-        <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-8">
-          {isLoading && (
-            <p className="text-zinc-300">Loading upcoming events...</p>
-          )}
-
-          {!isLoading && error && <p className="text-red-300">{error}</p>}
-
-          {!isLoading && !error && upcomingEvents.length === 0 && (
-            <p className="text-zinc-400">
-              Hmm. Unfortunately, there are no upcoming events at the moment.
-            </p>
-          )}
-
-          {!isLoading &&
-            !error &&
-            upcomingEvents.map((event) => {
-              const badge = getBookingTypeBadge(event);
-              const destination = event.link || "https://cc.vatssa.com/booking";
-
-              return (
-                <Card key={event.id} onClick={() =>
-                        window.open(destination, "_blank")
-                      } className="cursor-pointer transition-all duration-200"
-                      snap="top"
-                        media={
-                          <Image
-                            src={event.banner || undefined}
-                            alt={`${event.title} banner`}
-                            className="aspect-video w-full object-cover"
-                            fallbackContent="Event image unavailable"
-                          />
-                        }>
-                  <CardContent>
-                    <CardHeader>
-                      {event.title}
-                    </CardHeader>
-                    <CardTimestamp>
-                      {formatEventWindow(event.startTime, event.endTime)} UTC
-                    </CardTimestamp>
-                    {/* <p
-                      className={`rounded-full px-4 py-1 text-sm font-medium ${badge.className}`}
-                    >
-                      {badge.label}
-                    </p> */}
-                    <p className="text-zinc-300 text-base">
-                      {getBookingDescription(event)}
-                    </p>
-                    <p className="text-white text-sm hover:underline cursor-pointer">Read More → </p>
-                  </CardContent>
-                </Card>
-              );
-            })}
-        </div>
-      </section>
     </div>
   );
 }
