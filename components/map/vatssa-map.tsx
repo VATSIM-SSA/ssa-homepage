@@ -113,7 +113,16 @@ export default function VatssaMap({ data }: { data: VatssaData }) {
       worldCopyJump: true,
     });
     map.zoomControl.setPosition("topright");
-    map.fitBounds(VIEW_BOUNDS);
+
+    // The container may still be mid-layout right after mount (dynamic
+    // import swap), so fitBounds run here can measure a zero-size element
+    // and clamp to minZoom, showing the whole world. Defer to the next
+    // frame, once the browser has settled the container's real size.
+    const fitFrame = requestAnimationFrame(() => {
+      if (mapRef.current !== map) return;
+      map.invalidateSize();
+      map.fitBounds(VIEW_BOUNDS);
+    });
 
     L.tileLayer(
       "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
@@ -152,6 +161,7 @@ export default function VatssaMap({ data }: { data: VatssaData }) {
 
     return () => {
       cancelled = true;
+      cancelAnimationFrame(fitFrame);
       map.remove();
       mapRef.current = null;
       pilotLayerRef.current = null;

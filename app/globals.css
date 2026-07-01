@@ -102,8 +102,8 @@ body::-webkit-scrollbar-thumb {
 
 .leaflet-popup-content-wrapper,
 .leaflet-popup-tip {
-  background: #051d23;
-  color: #e5f2f5;
+  background: #051d23 !important;
+  color: #e5f2f5 !important;
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
   border: 1px solid rgba(1, 151, 176, 0.35);
 }
