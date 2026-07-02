@@ -1,12 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTimestamp,
-} from "@/components/ui/card";
 import { Header } from "@/components/ui/header";
 import { Image } from "@/components/ui/image";
 import { useEvents, type EventBooking } from "@/hooks/useEvents";
@@ -105,6 +99,9 @@ export default function Home() {
       parseEventDate(right.startTime).getTime(),
   );
 
+import { LiveMap } from "@/components/map/live-map";
+
+export default function Home() {
   return (
     <div className="px-4 relative flex flex-col min-h-dvh w-full items-center justify-center overflow-hidden bg-zinc-950">
       <img
@@ -120,15 +117,14 @@ export default function Home() {
       </div>
 
       <section className="h-[100vh] relative z-10 flex w-full max-w-7xl flex-col items-center justify-center px-6 mx-4 py-16 text-center">
-        <p className="mb-4 text-sm font-semibold uppercase tracking-[0.35em] text-amber-300">
+        <p className="mb-4 text-sm font-semibold uppercase tracking-[0.35em] text-secondary">
           VATSIM Sub-Sahara Africa
         </p>
         <h1 className="max-w-4xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl">
           Welcome to VATSSA.
         </h1>
         <p className="mt-6 max-w-2xl text-base leading-7 text-zinc-200 sm:text-lg">
-          Some sort of catchy, whitty, and informative description about VATSSA
-          and what we do. This is just placeholder text for now.
+          VATSSA is the home of virtual aviation across Sub Saharan Africa, offering ATC training, realistic operations, and a welcoming community for pilots and controllers of every experience level.
         </p>
         <div className="mt-8 flex items-center gap-3 flex-row">
           <Button variant="filled" href="https://eaip2.vatssa.com/">
@@ -144,40 +140,35 @@ export default function Home() {
         <Header text="About Us" />
 
         <div className="flex xl:flex-row flex-col w-full gap-12 items-center justify-center">
-          <div className="w-full xl:w-1/2 text-white flex flex-col items-start justify-start gap-2">
-            {/* <h1 className="font-semibold whitespace-nowrap text-base sm:text-xl md:text-3xl">Heading</h1> */}
+          <div className="w-full xl:w-1/2 text-white flex flex-col items-start justify-start gap-4">
             <p className="text-center xl:text-left">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris id
-              ultrices massa. Quisque quis justo sed augue volutpat pulvinar sit
-              amet sed ligula. Donec eu ante sed metus molestie dictum. Maecenas
-              vitae augue quis nisi molestie aliquet sed quis nunc. In eget mi
-              et sem rhoncus elementum a quis ligula. Sed sagittis dolor quis
-              hendrerit molestie. Curabitur eget sem a leo ornare varius et a
-              turpis. Integer sit amet mattis metus. Pellentesque luctus egestas
-              metus, sit amet ornare massa tincidunt vel. Donec efficitur velit
-              mauris, eget porta lorem convallis tincidunt. Curabitur a ante
-              quis libero vulputate pellentesque. Ut rhoncus arcu in lobortis
-              tempus. Donec blandit mauris nisl, non lacinia mi vulputate sit
-              amet. Proin congue magna lobortis nisi faucibus tristique vitae
-              sit amet velit. Integer efficitur orci a dui tincidunt gravida.
-              <br />
-              <br />
-              Mauris malesuada velit euismod dui placerat, in aliquet tellus
-              volutpat. Cras sit amet sapien ex. Sed dignissim sapien nunc, eu
-              bibendum erat commodo sit amet. Sed viverra metus eget nulla
-              bibendum euismod. Sed lacinia ante ac lacus porttitor scelerisque.
-              Quisque luctus risus leo, ullamcorper maximus lorem aliquam non.
-              Mauris malesuada velit euismod dui placerat, in aliquet tellus
-              volutpat. Cras sit amet sapien ex. Sed dignissim sapien nunc, eu
-              bibendum erat commodo sit amet. Sed viverra metus eget nulla
-              bibendum euismod. Sed lacinia ante ac lacus porttitor scelerisque.
-              Quisque luctus risus leo, ullamcorper maximus lorem aliquam non.
+              VATSSA is a community first. We are students and engineers,
+              real-world aviation professionals and complete beginners, united
+              by a love of flight. Whether you are flying long-haul into Lagos,
+              working approach into Nairobi, or learning your first
+              top-of-descent, there is a place for you here.
+            </p>
+            <p className="text-center xl:text-left">
+              We train and certify controllers from tower to oceanic, welcome
+              pilots filing in from across the globe, and bring the continent
+              together at events like our flagship Cross Africa. Structured
+              training carries members from first login to first clearance to
+              fully rated controller.
+            </p>
+            <p className="text-center xl:text-left">
+              Sub-Saharan Africa is one of the most dynamic regions on earth,
+              and its virtual skies deserve the same ambition as the real ones.
+              This is a home for everyone who has ever looked up at the African
+              sky and wanted to be part of it.
+            </p>
+            <p className="text-center xl:text-left text-lg font-semibold text-primary">
+              The African skies are open, no matter what.
             </p>
           </div>
           <div className="h-full xl:flex justify-center items-center hidden w-1/2">
             <img
-              src="/images/ssa-firs.svg"
-              alt="Upcoming Event"
+              src="/images/ssa-airspace.png"
+              alt="Map of VATSSA airspace across Sub-Saharan Africa"
               className="aspect-square rounded-xl object-contain"
             />
           </div>
@@ -329,6 +320,7 @@ export default function Home() {
             })}
         </div>
       </section>
+      <LiveMap />
     </div>
   );
 }

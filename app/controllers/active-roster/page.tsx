@@ -26,7 +26,7 @@ type SortDirection = "asc" | "desc";
 function StatusIcon({ active }: { active: boolean }) {
   return active ? (
     <Check
-      className="mx-auto h-5 w-5 text-lime-400"
+      className="mx-auto h-5 w-5 text-secondary"
       strokeWidth={2.5}
       aria-label="Available"
     />

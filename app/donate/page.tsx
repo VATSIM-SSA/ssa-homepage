@@ -1,3 +1,4 @@
+import { Heart, ExternalLink } from "lucide-react";
 import { Image } from "@/components/ui/image";
 import { Button } from "@/components/ui/button";
 
@@ -87,18 +88,35 @@ export default function Donate() {
             </div>
           </div>
           <div className="w-full h-px bg-zinc-700/50" />
-          <div className="flex flex-col gap-2 items-center">
-            <Button variant="filled" href="https://eaip2.vatssa.com/">
-              Donate Here
-            </Button>
+          <div className="flex flex-col gap-8 items-center">
+            <a
+              href="https://vats.im/ssa/opencollective"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Donate via Open Collective"
+              className="group flex h-60 w-60 sm:h-72 sm:w-72 flex-col items-center justify-center gap-2 rounded-full bg-primary text-center text-zinc-950 shadow-2xl shadow-primary/30 ring-4 ring-primary/20 transition-all duration-200 hover:scale-105 hover:bg-primary/85 hover:shadow-primary/50 hover:ring-primary/40"
+            >
+              <Heart
+                className="h-10 w-10 transition-transform duration-200 group-hover:scale-110"
+                strokeWidth={2.5}
+              />
+              <span className="text-3xl font-extrabold tracking-tight">
+                Donate
+              </span>
+              <span className="flex items-center gap-1 text-sm font-semibold opacity-80">
+                via Open Collective <ExternalLink className="h-4 w-4" />
+              </span>
+            </a>
 
-            <p className="mt-2 text-zinc-400 text-center md:text-left">
-              To read the full policy, {" "}
+            <p className="text-zinc-400 text-center text-sm">
+              Read our full{" "}
               <a
-                href="https://opencollective.com/vatssa-division"
-                className="text-blue-500 underline"
+                href="https://vats.im/ssa/donations"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary underline hover:text-primary/80"
               >
-                click here
+                Donations Policy
               </a>
               .
             </p>
