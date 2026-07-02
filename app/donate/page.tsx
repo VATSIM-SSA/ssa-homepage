@@ -1,5 +1,6 @@
 import { Heart, ExternalLink } from "lucide-react";
 import { Image } from "@/components/ui/image";
+import { Button } from "@/components/ui/button";
 
 type StaffMember = {
   id: string;
@@ -33,7 +34,7 @@ export default function Donate() {
       </section>
 
       <section className="relative z-10 flex w-full max-w-7xl flex-col gap-6 items-center justify-center px-6 mx-12 py-16 text-center">
-        <div className="bg-zinc-800/50 w-full flex flex-col gap-10 items-center p-10 rounded-xl">
+        <div className="bg-zinc-800/50 w-full flex flex-col gap-8 items-center p-10 rounded-xl">
           <div className="w-full grid lg:grid-cols-2 grid-cols-1 gap-10 lg:gap-20">
             <div className="flex flex-col gap-4">
               <h1 className="text-left text-2xl md:text-4xl text-white font-bold">
