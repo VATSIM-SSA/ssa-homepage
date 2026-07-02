@@ -1,11 +1,13 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTimestamp } from "@/components/ui/card";
 import { Header } from "@/components/ui/header";
 import { Image } from "@/components/ui/image";
 import { useEvents, type EventBooking } from "@/hooks/useEvents";
 import { useBookings } from "@/hooks/useBookings";
 import { useNews } from "@/hooks/useNews";
+import { LiveMap } from "@/components/map/live-map";
 
 function parseEventDate(value: string) {
   const parsed = new Date(value);
@@ -99,9 +101,6 @@ export default function Home() {
       parseEventDate(right.startTime).getTime(),
   );
 
-import { LiveMap } from "@/components/map/live-map";
-
-export default function Home() {
   return (
     <div className="px-4 relative flex flex-col min-h-dvh w-full items-center justify-center overflow-hidden bg-zinc-950">
       <img
