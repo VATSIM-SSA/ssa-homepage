@@ -42,7 +42,7 @@ export default function Navbar() {
               <DropdownItem
                 className="flex items-center gap-1"
                 onClick={() =>
-                  (window.location.href = "https://eaip2.vatssa.com/")
+                  (window.location.href = "https://vats.im/ssa/privacy")
                 }
               >
                 Our Policies <ExternalLink className="h-4 w-auto" />
