@@ -43,7 +43,7 @@ export default function Home() {
         <Header text="About Us" />
 
         <div className="flex xl:flex-row flex-col w-full gap-12 items-center justify-center">
-          <div className="w-full xl:w-1/2 text-white flex flex-col items-start justify-start gap-4">
+          <div className="w-full xl:w-1/2 text-white flex flex-col items-center xl:items-start justify-start gap-4">
             <p className="text-center xl:text-left">
               VATSSA is a community first. We are students and engineers,
               real-world aviation professionals and complete beginners, united
@@ -51,22 +51,12 @@ export default function Home() {
               working approach into Nairobi, or learning your first
               top-of-descent, there is a place for you here.
             </p>
-            <p className="text-center xl:text-left">
-              We train and certify controllers from tower to oceanic, welcome
-              pilots filing in from across the globe, and bring the continent
-              together at events like our flagship Cross Africa. Structured
-              training carries members from first login to first clearance to
-              fully rated controller.
-            </p>
-            <p className="text-center xl:text-left">
-              Sub-Saharan Africa is one of the most dynamic regions on earth,
-              and its virtual skies deserve the same ambition as the real ones.
-              This is a home for everyone who has ever looked up at the African
-              sky and wanted to be part of it.
-            </p>
             <p className="text-center xl:text-left text-lg font-semibold text-primary">
               The African skies are open, no matter what.
             </p>
+            <Button variant="outline" href="/about">
+              Learn More About Us
+            </Button>
           </div>
           <div className="h-full xl:flex justify-center items-center hidden xl:w-1/2">
             <img

@@ -39,6 +39,9 @@ export default function Navbar() {
 
           <div className="hidden w-full items-center justify-end lg:flex gap-2 ">
             <Dropdown text="About Us" chevron={true} variant="ghost">
+              <DropdownItem onClick={() => router.push("/about")}>
+                About VATSSA
+              </DropdownItem>
               <DropdownItem
                 className="flex items-center gap-1"
                 onClick={() =>
@@ -193,6 +196,15 @@ export default function Navbar() {
                 <p className="px-4 text-zinc-400 font-bold text-sm mb-1">
                   About Us
                 </p>
+                <Button
+                  variant="menu"
+                  onClick={() => {
+                    setShowMobileMenu(false);
+                    router.push("/about");
+                  }}
+                >
+                  About VATSSA
+                </Button>
                 <Button
                   variant="menu"
                   className="flex items-center gap-2"

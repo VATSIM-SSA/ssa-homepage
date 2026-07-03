@@ -5,6 +5,9 @@ export default function Footer() {
         <p className="lg:w-1/3 w-full text-center lg:text-left whitespace-nowrap">&copy; 2026 VATSSA. All rights reserved. </p>
         <p className="text-center lg:w-1/3">Created with ❤️ by <a className="text-red-400 cursor-pointer hover:text-red-300 transition-all duration-200" href="https://hykka.dev">hykka</a>.</p>
         <div className="lg:w-1/3 w-full flex text-center justify-center lg:justify-end items-center gap-4">
+          <a href="/about" className="hover:text-white transition-all duration-200">
+            About
+          </a>
           <a href="#" className="hover:text-white transition-all duration-200">
             Privacy Policy
           </a>
