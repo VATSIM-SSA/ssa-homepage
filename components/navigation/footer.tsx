@@ -8,11 +8,8 @@ export default function Footer() {
           <a href="/about" className="hover:text-white transition-all duration-200">
             About
           </a>
-          <a href="#" className="hover:text-white transition-all duration-200">
+          <a href="https://vats.im/ssa/privacy" className="hover:text-white transition-all duration-200">
             Privacy Policy
-          </a>
-          <a href="#" className="hover:text-white transition-all duration-200">
-            Terms of Service
           </a>
           <a href="/about/staff-team" className="hover:text-white transition-all duration-200">
             Contact Us

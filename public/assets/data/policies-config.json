@@ -1,0 +1,34 @@
+{
+    "policies": [
+        {
+            "id": "unique-identifier-for-policy-1",
+            "title": "Policy Title 1",
+            "description": "A brief description of Policy 1.",
+            "url": "https://example.com/policy-1"
+        },
+        {
+            "id": "unique-identifier-for-policy-2",
+            "title": "Policy Title 2",
+            "description": "A brief description of Policy 2.",
+            "url": "https://example.com/policy-2"
+        },
+        {
+            "id": "unique-identifier-for-policy-3",
+            "title": "Policy Title 3",
+            "description": "A brief description of Policy 3.",
+            "url": "https://example.com/policy-3"
+        },
+        {
+            "id": "unique-identifier-for-policy-4",
+            "title": "Policy Title 4",
+            "description": "A brief description of Policy 4.",
+            "url": "https://example.com/policy-4"
+        },
+        {
+            "id": "unique-identifier-for-policy-5",
+            "title": "Policy Title 5",
+            "description": "A brief description of Policy 5.",
+            "url": "https://example.com/policy-5"
+        }
+    ]
+}
