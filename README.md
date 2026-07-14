@@ -2,7 +2,7 @@
 
 # 🛫 VATSSA Homepage
 
-### The public homepage for **VATSIM South Africa**
+### The public homepage for **VATSIM Sub-Saharan Africa**
 
 [![Live](https://img.shields.io/badge/live-vatssa.com-0197B0?style=for-the-badge&logo=cloudflare&logoColor=white)](https://vatssa.com)
 [![Deploy](https://github.com/VATSIM-SSA/ssa-homepage/actions/workflows/deploy.yml/badge.svg)](https://github.com/VATSIM-SSA/ssa-homepage/actions/workflows/deploy.yml)
@@ -181,7 +181,7 @@ next.config.ts                  Next config + Content-Security-Policy
 
 <div align="center">
 
-**© VATSIM South Africa** · Maintained by the VATSSA Tech Team
+**© VATSIM Sub-Saharan Africa** · Maintained by the VATSSA Tech Team
 
 <sub>The African skies are open, no matter what.</sub>
 
