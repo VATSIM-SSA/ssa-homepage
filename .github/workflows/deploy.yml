@@ -5,6 +5,10 @@ name: Build & Deploy homepage
 on:
   push:
     branches: [main, staging]
+    # Don't rebuild/redeploy for docs-only commits.
+    paths-ignore:
+      - "**.md"
+      - "LICENSE"
 
 # Never let two deploys of the same branch overlap.
 concurrency:
@@ -64,3 +68,17 @@ jobs:
           # The server's forced command ignores this and runs
           # deploy-homepage.sh <env> for whichever key this environment holds.
           script: ${{ steps.vars.outputs.target }}
+
+      - name: Notify Discord on failure
+        if: failure()
+        run: |
+          curl -sS -H "Content-Type: application/json" -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d '{
+            "username": "SSA Deploy",
+            "embeds": [{
+              "title": "❌ Homepage deploy failed — ${{ steps.vars.outputs.target }}",
+              "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+              "color": 15158332,
+              "description": "Branch **${{ github.ref_name }}** · commit `${{ github.sha }}` by **${{ github.actor }}**\nClick the title for the failed run logs.",
+              "footer": { "text": "ssa-homepage CI" }
+            }]
+          }'
