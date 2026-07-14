@@ -1,0 +1,125 @@
+{
+    "Directors": [
+        {
+            "id": "wian-saptouw",
+            "name": "Wian Saptouw",
+            "role": "Division Director",
+            "email": "wian.saptouw@vatssa.com",
+            "cid": "1574467"
+        },
+        {
+            "id": "luke-van-zyl",
+            "name": "Luke Van Zyl",
+            "role": "Training Manager",
+            "email": "luke.vanzyl@vatssa.com",
+            "cid": "1495212"
+        },
+        {
+            "id": "josh-martin",
+            "name": "Josh Martin",
+            "role": "Membership Manager",
+            "email": "josh.martin@vatssa.com",
+            "cid": "1746136"
+        },
+        {
+            "id": "tyron-ross",
+            "name": "Tyron Ross",
+            "role": "Events Manager",
+            "email": "tyron.ross@vatssa.com",
+            "cid": "1526762"
+        },
+        {
+            "id": "shaun-megit",
+            "name": "Shaun Megit",
+            "role": "rVA Relations Manager",
+            "email": "shaun.megit@vatssa.com",
+            "cid": "1741852"
+        },
+        {
+            "id": "george-schoonraad",
+            "name": "George Schoonraad",
+            "role": "Tech Manager",
+            "email": "To Be Added",
+            "cid": "1768227"
+        },
+        {
+            "id": "clark-king",
+            "name": "Clark King",
+            "role": "Deputy Training Manager",
+            "email": "clark.king@vatssa.com",
+            "cid": "1731409"
+        },
+        {
+            "id": "william-clarke",
+            "name": "William Clarke",
+            "role": "Deputy Events Manager",
+            "email": "william.clarke@vatssa.com",
+            "cid": "1683277"
+        }
+    ],
+    "Operations": [
+        {
+            "id": "vacany-1",
+            "name": "Vacant",
+            "role": "Events Team",
+            "email": "",
+            "cid": "VACANT"
+        },
+        {
+            "id": "vacancy-2",
+            "name": "Vacant",
+            "role": "Events Team",
+            "email": "",
+            "cid": "VACANT"
+        },
+        {
+            "id": "vacany-3",
+            "name": "Vacant",
+            "role": "Events Team",
+            "email": "",
+            "cid": "VACANT"
+        },
+        {
+            "id": "vacancy-4",
+            "name": "Vacant",
+            "role": "Operations Team",
+            "email": "",
+            "cid": "VACANT"
+        },
+        {
+            "id": "vacancy-5",
+            "name": "Vacant",
+            "role": "Operations Team",
+            "email": "",
+            "cid": "VACANT"
+        },
+        {
+            "id": "vacancy-6",
+            "name": "Vacant",
+            "role": "Operations Team",
+            "email": "",
+            "cid": "VACANT"
+        },
+        {
+            "id": "vacancy-7",
+            "name": "Vacant",
+            "role": "Training Team",
+            "email": "",
+            "cid": "VACANT"
+        },
+        {
+            "id": "vacancy-8",
+            "name": "Vacant",
+            "role": "Training Team",
+            "email": "",
+            "cid": "VACANT"
+        },
+        {
+            "id": "vacancy-9",
+            "name": "Vacant",
+            "role": "Training Team",
+            "email": "",
+            "cid": "VACANT"
+        }
+    ]
+}
