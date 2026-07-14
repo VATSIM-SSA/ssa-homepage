@@ -45,10 +45,10 @@ export default function Navbar() {
               <DropdownItem
                 className="flex items-center gap-1"
                 onClick={() =>
-                  (window.location.href = "https://policy.vatssa.com")
+                  (window.location.href = "https://vatssa.com/about/policies")
                 }
               >
-                Our Policies <ExternalLink className="h-4 w-auto" />
+                Our Policies
               </DropdownItem>
               <DropdownItem onClick={() => router.push("/about/staff-team")}>
                 Staff Team
@@ -59,7 +59,7 @@ export default function Navbar() {
               <DropdownItem
                 className="flex items-center gap-1"
                 onClick={() =>
-                  window.open("https://eaip2.vatssa.com/", "_blank")
+                  window.open("https://docs.vatssa.com/", "_blank")
                 }
               >
                 Transfer/Visit <ExternalLink className="h-4 w-auto" />
@@ -70,7 +70,7 @@ export default function Navbar() {
               <DropdownItem
                 className="flex items-center gap-1"
                 onClick={() =>
-                  window.open("https://eaip2.vatssa.com/General/Resources/Links/", "_blank")
+                  window.open("https://docs.vatssa.com/Pilot%27s%20Corner/", "_blank")
                 }
               >
                 Resources <ExternalLink className="h-4 w-auto" />
@@ -78,7 +78,7 @@ export default function Navbar() {
               <DropdownItem
                 className="flex items-center gap-1"
                 onClick={() =>
-                  window.open("https://eaip2.vatssa.com/Pilot%20Briefing/", "_blank")
+                  window.open("https://docs.vatssa.com/Pilot%27s%20Corner", "_blank")
                 }
               >
                 Pilot Briefings <ExternalLink className="h-4 w-auto" />
@@ -108,7 +108,7 @@ export default function Navbar() {
               <DropdownItem
                 className="flex items-center gap-1"
                 onClick={() =>
-                  window.open("https://eaip2.vatssa.com/General/Resources/Links/", "_blank")
+                  window.open("https://docs.vatssa.com/General/Resources/Links/", "_blank")
                 }
               >
                 Resources <ExternalLink className="h-4 w-auto" />
@@ -116,10 +116,10 @@ export default function Navbar() {
               <DropdownItem
                 className="flex items-center gap-1"
                 onClick={() =>
-                  window.open("https://eaip2.vatssa.com/", "_blank")
+                  window.open("https://docs.vatssa.com/", "_blank")
                 }
               >
-                eAIP <ExternalLink className="h-4 w-auto" />
+                Docs Site <ExternalLink className="h-4 w-auto" />
               </DropdownItem>
               <DropdownSeperator />
               <DropdownItem
@@ -206,10 +206,10 @@ export default function Navbar() {
                   className="flex items-center gap-2"
                   onClick={() => {
                     setShowMobileMenu(false);
-                    window.location.href = "https://eaip2.vatssa.com/";
+                    window.location.href = "https://vatssa.com/about/policies";
                   }}
                 >
-                  Our Policies <ExternalLink className="h-4 w-auto" />
+                  Our Policies 
                 </Button>
                 <Button
                   variant="menu"
@@ -234,7 +234,7 @@ export default function Navbar() {
                   className="flex items-center gap-2"
                   onClick={() => {
                     setShowMobileMenu(false);
-                    window.open("https://eaip2.vatssa.com/", "_blank");
+                    window.open("https://docs.vatssa.com/", "_blank");
                   }}
                 >
                   Transfer/Visit <ExternalLink className="h-4 w-auto" />
@@ -248,7 +248,7 @@ export default function Navbar() {
                   className="flex items-center gap-2"
                   onClick={() => {
                     setShowMobileMenu(false);
-                    window.open("https://eaip2.vatssa.com/General/Resources/Links/", "_blank");
+                    window.open("https://docs.vatssa.com/Pilot%27s%20Corner/", "_blank");
                   }}
                 >
                   Resources <ExternalLink className="h-4 w-auto" />
@@ -258,7 +258,7 @@ export default function Navbar() {
                   className="flex items-center gap-2"
                   onClick={() => {
                     setShowMobileMenu(false);
-                    window.open("https://eaip2.vatssa.com/Pilot%20Briefing/", "_blank");
+                    window.open("https://docs.vatssa.com/Pilot%27s%20Corner", "_blank");
                   }}
                 >
                   Pilot Briefings <ExternalLink className="h-4 w-auto" />
@@ -301,7 +301,7 @@ export default function Navbar() {
                   className="flex items-center gap-2"
                   onClick={() => {
                     setShowMobileMenu(false);
-                    window.open("https://eaip2.vatssa.com/General/Resources/Links/", "_blank");
+                    window.open("https://docs.vatssa.com/General/Resources/Links/", "_blank");
                   }}
                 >
                   Resources <ExternalLink className="h-4 w-auto" />
@@ -311,10 +311,10 @@ export default function Navbar() {
                   className="flex items-center gap-2"
                   onClick={() => {
                     setShowMobileMenu(false);
-                    window.open("https://eaip2.vatssa.com/", "_blank");
+                    window.open("https://docd.vatssa.com/", "_blank");
                   }}
                 >
-                  eAIP <ExternalLink className="h-4 w-auto" />
+                  Docs Site <ExternalLink className="h-4 w-auto" />
                 </Button>
                 <Button
                   variant="menu"
