@@ -4,10 +4,10 @@ import { Header } from "@/components/ui/header";
 import { Button } from "@/components/ui/button";
 import { Image } from "@/components/ui/image";
 import { ExternalLink } from "lucide-react";
-import PolicyList from "@/public/assets/data/policies-config.json";
+import { usePolicies } from "@/hooks/usePolicies";
 
 export default function Policies() {
-  const policies = PolicyList.policies;
+  const { policies, isLoading, error } = usePolicies();
 
   return (
     <div className="px-4 relative flex flex-col min-h-dvh w-full items-center justify-center overflow-hidden bg-zinc-950">
