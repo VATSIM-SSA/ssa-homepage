@@ -6,25 +6,18 @@ export async function GET(request: NextRequest) {
 
     const response = await fetch(sourceUrl.toString(), {
       cache: "no-store",
+      signal: AbortSignal.timeout(10000),
     });
 
     if (!response.ok) {
-      const message = await response.text();
-
-      return new Response(message || "Error fetching policy data.", {
+      return new Response(await response.text(), {
         status: response.status,
       });
     }
 
-    const body = await response.text();
+    const json = await response.json();
 
-    return new Response(body, {
-      status: response.status,
-      headers: {
-        "content-type":
-          response.headers.get("content-type") ?? "application/json",
-      },
-    });
+    return Response.json(json);
   } catch (error) {
     return new Response(
       error instanceof Error
@@ -32,7 +25,7 @@ export async function GET(request: NextRequest) {
         : "Error fetching policy data.",
       {
         status: 500,
-      }
+      },
     );
   }
 }

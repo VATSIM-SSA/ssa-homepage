@@ -1,6 +1,5 @@
 "use client";
 
-import { Header } from "@/components/ui/header";
 import { Button } from "@/components/ui/button";
 import { Image } from "@/components/ui/image";
 import { ExternalLink } from "lucide-react";
@@ -23,6 +22,7 @@ export default function Policies() {
         <h1 className="max-w-4xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl">
           Our Policies
         </h1>
+
         <p className="mt-6 max-w-2xl text-base leading-7 text-zinc-200 sm:text-lg">
           View all major policies that govern our operations, including our
           privacy policy, code of conduct, and more.
@@ -30,28 +30,53 @@ export default function Policies() {
       </section>
 
       <section className="relative z-10 flex w-full max-w-7xl flex-col gap-6 items-center justify-center px-6 mx-12 py-16 text-center">
-        <div className="grid grid-cols-1 w-full gap-4">
-          {policies.map((policy) => (
-            <div
-              key={policy.id}
-              className="bg-zinc-800 rounded-xl p-6 flex items-center justify-between"
-            >
-              <div className="flex flex-col items-start justify-center">
-                <h2 className="text-2xl font-semibold text-white">
-                  {policy.title}
-                </h2>
-                <p className="mt-2 text-zinc-300">{policy.description}</p>{" "}
-              </div>
-              <Button
-                variant="filled"
-                onClick={() => window.open(policy.url, "_blank")}
-                className="mt-4 flex items-center gap-2"
+        {isLoading && (
+          <p className="text-zinc-300">Loading policies...</p>
+        )}
+
+        {!isLoading && error && (
+          <p className="text-red-300">{error}</p>
+        )}
+
+        {!isLoading && !error && policies.length === 0 && (
+          <p className="text-zinc-400">No policies available.</p>
+        )}
+
+        {!isLoading && !error && policies.length > 0 && (
+          <div className="grid grid-cols-1 w-full gap-4">
+            {policies.map((policy) => (
+              <div
+                key={policy.id}
+                className="bg-zinc-800 rounded-xl p-6 flex items-center justify-between"
               >
-                View Policy <ExternalLink className="h-4 w-auto" />
-              </Button>
-            </div>
-          ))}
-        </div>
+                <div className="flex flex-col items-start justify-center">
+                  <h2 className="text-2xl font-semibold text-white">
+                    {policy.title}
+                  </h2>
+
+                  <p className="mt-2 text-zinc-300">
+                    {policy.description}
+                  </p>
+                </div>
+
+                <Button
+                  variant="filled"
+                  onClick={() =>
+                    window.open(
+                      policy.url,
+                      "_blank",
+                      "noopener,noreferrer"
+                    )
+                  }
+                  className="mt-4 flex items-center gap-2"
+                >
+                  View Policy
+                  <ExternalLink className="h-4 w-auto" />
+                </Button>
+              </div>
+            ))}
+          </div>
+        )}
       </section>
     </div>
   );

@@ -10,27 +10,33 @@ export async function GET(_request: NextRequest) {
       });
     }
 
-    const response = await fetch(policiesApi, {
-      cache: "no-store",
-    });
+    let url: URL;
 
-    if (!response.ok) {
-      const message = await response.text();
-
-      return new Response(message || "Error fetching policy data.", {
-        status: response.status,
+    try {
+      url = new URL(policiesApi);
+    } catch {
+      return new Response("POLICIES_API is not a valid URL.", {
+        status: 500,
       });
     }
 
-    const body = await response.text();
-
-    return new Response(body, {
-      status: response.status,
-      headers: {
-        "content-type":
-          response.headers.get("content-type") ?? "application/json",
-      },
+    const response = await fetch(url.toString(), {
+      cache: "no-store",
+      signal: AbortSignal.timeout(10000),
     });
+
+    if (!response.ok) {
+      return new Response(
+        `Upstream policy API returned ${response.status}.`,
+        {
+          status: response.status,
+        },
+      );
+    }
+
+    const json = await response.json();
+
+    return Response.json(json);
   } catch (error) {
     return new Response(
       error instanceof Error
@@ -38,7 +44,7 @@ export async function GET(_request: NextRequest) {
         : "Error fetching policy data.",
       {
         status: 500,
-      }
+      },
     );
   }
 }

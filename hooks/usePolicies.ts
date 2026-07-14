@@ -2,23 +2,50 @@
 
 import { useEffect, useState } from "react";
 
-export type Policy = {
+export interface Policy {
   id: string;
   title: string;
   description: string;
   url: string;
-};
+}
 
 type PoliciesResponse =
   | { policies: Policy[] }
   | { data: { policies: Policy[] } };
 
-function normalisePolicies(payload: PoliciesResponse): Policy[] {
-  if ("data" in payload) {
-    return payload.data.policies;
+function isPolicy(value: unknown): value is Policy {
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    typeof (value as Policy).id === "string" &&
+    typeof (value as Policy).title === "string" &&
+    typeof (value as Policy).description === "string" &&
+    typeof (value as Policy).url === "string"
+  );
+}
+
+function normalisePolicies(payload: unknown): Policy[] {
+  let policies: unknown;
+
+  if (
+    typeof payload === "object" &&
+    payload !== null &&
+    "data" in payload
+  ) {
+    policies = (payload as { data: { policies?: unknown } }).data.policies;
+  } else if (
+    typeof payload === "object" &&
+    payload !== null &&
+    "policies" in payload
+  ) {
+    policies = (payload as { policies?: unknown }).policies;
   }
 
-  return payload.policies;
+  if (!Array.isArray(policies) || !policies.every(isPolicy)) {
+    throw new Error("Invalid policy response.");
+  }
+
+  return policies;
 }
 
 export function usePolicies() {
@@ -42,21 +69,23 @@ export function usePolicies() {
           throw new Error(await response.text());
         }
 
-        const payload = (await response.json()) as PoliciesResponse;
+        const payload = await response.json();
 
         if (!isActive) return;
 
         setPolicies(normalisePolicies(payload));
-      } catch (err) {
+      } catch (error) {
         if (!isActive) return;
 
         setError(
-          err instanceof Error
-            ? err.message
-            : "Failed to fetch policies."
+          error instanceof Error
+            ? error.message
+            : "Failed to fetch policies.",
         );
       } finally {
-        if (isActive) setIsLoading(false);
+        if (isActive) {
+          setIsLoading(false);
+        }
       }
     }
 
