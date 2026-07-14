@@ -8,7 +8,7 @@ export default function Footer() {
           <a href="/about" className="hover:text-white transition-all duration-200">
             About
           </a>
-          <a href="https://vats.im/ssa/privacy" className="hover:text-white transition-all duration-200">
+          <a href="https://policy.vatssa.com/privacy/Privacy_v1.0.pdf" className="hover:text-white transition-all duration-200">
             Privacy Policy
           </a>
           <a href="/about/staff-team" className="hover:text-white transition-all duration-200">
