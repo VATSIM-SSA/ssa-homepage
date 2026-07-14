@@ -83,7 +83,6 @@ export default function Donate() {
                   surrendered and that you cannot request your money back at any
                   time.
                 </li>
-                <li>You confirm that you are over the age of 18.</li>
               </ul>
             </div>
           </div>
