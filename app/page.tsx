@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTimestamp } from "@/components/ui/card";
+import { Carousel } from "@/components/ui/carousel";
 import { Header } from "@/components/ui/header";
 import { Image } from "@/components/ui/image";
 import { useEvents, type EventBooking } from "@/hooks/useEvents";
@@ -100,6 +101,10 @@ export default function Home() {
       parseEventDate(left.startTime).getTime() -
       parseEventDate(right.startTime).getTime(),
   );
+  const bookingPages: (typeof bookings)[] = [];
+  for (let index = 0; index < bookings.length; index += 4) {
+    bookingPages.push(bookings.slice(index, index + 4));
+  }
 
   return (
     <div className="px-4 relative flex flex-col min-h-dvh w-full items-center justify-center overflow-hidden bg-zinc-950">
@@ -167,24 +172,21 @@ export default function Home() {
       <section className="relative z-10 flex w-full max-w-7xl flex-col gap-6 items-center justify-center px-6 mx-12 py-16 text-center">
         <Header text="Latest News" />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-8">
-          {isNewsLoading && (
-            <p className="text-zinc-300">Loading latest news...</p>
-          )}
+        {isNewsLoading && <p className="text-zinc-300">Loading latest news...</p>}
 
-          {!isNewsLoading && newsError && (
-            <p className="text-red-300">{newsError}</p>
-          )}
+        {!isNewsLoading && newsError && (
+          <p className="text-red-300">{newsError}</p>
+        )}
 
-          {!isNewsLoading && !newsError && news.length === 0 && (
-            <p className="text-zinc-400">
-              Hmm. There are no news posts available right now.
-            </p>
-          )}
+        {!isNewsLoading && !newsError && news.length === 0 && (
+          <p className="text-zinc-400">
+            Hmm. There are no news posts available right now.
+          </p>
+        )}
 
-          {!isNewsLoading &&
-            !newsError &&
-            news.slice(0, 4).map((post) => {
+        {!isNewsLoading && !newsError && news.length > 0 && (
+          <Carousel label="Latest news" itemClassName="md:w-1/2">
+            {news.slice(0, 4).map((post) => {
               const destination =
                 post.url || "https://community.vatssa.com/latest";
 
@@ -192,7 +194,7 @@ export default function Home() {
                 <Card
                   key={post.id}
                   onClick={() => window.open(destination, "_blank")}
-                  className="cursor-pointer transition-all duration-200"
+                  className="h-full cursor-pointer transition-all duration-200"
                 >
                   <CardContent>
                     <CardHeader>{post.title}</CardHeader>
@@ -209,7 +211,8 @@ export default function Home() {
                 </Card>
               );
             })}
-        </div>
+          </Carousel>
+        )}
 
         <a className="text-neutral-400 text-sm hover:underline cursor-pointer">
           View All →
@@ -219,29 +222,26 @@ export default function Home() {
       <section className="relative z-10 flex w-full max-w-7xl flex-col gap-6 items-center justify-center px-6 mx-12 py-16 text-center">
         <Header text="Upcoming Events" />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-8">
-          {isLoading && (
-            <p className="text-zinc-300">Loading upcoming events...</p>
-          )}
+        {isLoading && <p className="text-zinc-300">Loading upcoming events...</p>}
 
-          {!isLoading && error && <p className="text-red-300">{error}</p>}
+        {!isLoading && error && <p className="text-red-300">{error}</p>}
 
-          {!isLoading && !error && upcomingEvents.length === 0 && (
-            <p className="text-zinc-400">
-              Hmm. Unfortunately, there are no upcoming events at the moment.
-            </p>
-          )}
+        {!isLoading && !error && upcomingEvents.length === 0 && (
+          <p className="text-zinc-400">
+            Hmm. Unfortunately, there are no upcoming events at the moment.
+          </p>
+        )}
 
-          {!isLoading &&
-            !error &&
-            upcomingEvents.map((event) => {
+        {!isLoading && !error && upcomingEvents.length > 0 && (
+          <Carousel label="Upcoming events" itemClassName="md:w-1/2">
+            {upcomingEvents.map((event) => {
               const destination = event.link || "https://cc.vatssa.com/booking";
 
               return (
                 <Card
                   key={event.id}
                   onClick={() => window.open(destination, "_blank")}
-                  className="cursor-pointer transition-all duration-200"
+                  className="h-full cursor-pointer transition-all duration-200"
                   snap="top"
                   media={
                     <Image
@@ -267,47 +267,52 @@ export default function Home() {
                 </Card>
               );
             })}
-        </div>
+          </Carousel>
+        )}
       </section>
 
       <section className="relative z-10 flex w-full max-w-7xl flex-col gap-6 items-center justify-center px-6 mx-12 py-16 text-center">
         <Header text="Upcoming Bookings" />
 
-        <div className="grid grid-cols-1 w-full gap-2">
-          {isBookingsLoading && (
-            <p className="text-zinc-300">Loading upcoming bookings...</p>
-          )}
+        {isBookingsLoading && (
+          <p className="text-zinc-300">Loading upcoming bookings...</p>
+        )}
 
-          {!isBookingsLoading && bookingsError && (
-            <p className="text-red-300">{bookingsError}</p>
-          )}
+        {!isBookingsLoading && bookingsError && (
+          <p className="text-red-300">{bookingsError}</p>
+        )}
 
-          {!isBookingsLoading && !bookingsError && bookings.length === 0 && (
-            <p className="text-zinc-400">
-              Hmm. There are no upcoming bookings right now.
-            </p>
-          )}
+        {!isBookingsLoading && !bookingsError && bookings.length === 0 && (
+          <p className="text-zinc-400">
+            Hmm. There are no upcoming bookings right now.
+          </p>
+        )}
 
-          {!isBookingsLoading &&
-            !bookingsError &&
-            bookings.map((booking) => {
-              const title = booking.callsign || booking.name || "Booking";
+        {!isBookingsLoading && !bookingsError && bookings.length > 0 && (
+          <Carousel label="Upcoming bookings">
+            {bookingPages.map((bookingPage, pageIndex) => (
+              <div key={pageIndex} className="flex w-full flex-col gap-2">
+                {bookingPage.map((booking) => {
+                  const title = booking.callsign || booking.name || "Booking";
 
-              return (
-                <div
-                  key={booking.id}
-                  className="transition-all duration-200 px-6 py-3 flex w-full flex-row justify-between items-center overflow-hidden rounded-xl bg-zinc-800"
-                >
-                  <p className="text-left w-full text-lg font-semibold text-white">
-                    {title}
-                  </p>
-                  <p className="text-zinc-400 flex w-full flex-col items-end justify-center text-left">
-                    {formatBookingDate(booking.time_start, booking.time_end)}
-                  </p>
-                </div>
-              );
-            })}
-        </div>
+                  return (
+                    <div
+                      key={booking.id}
+                      className="transition-all duration-200 px-6 py-3 flex w-full flex-row justify-between items-center overflow-hidden rounded-xl bg-zinc-800"
+                    >
+                      <p className="text-left w-full text-lg font-semibold text-white">
+                        {title}
+                      </p>
+                      <p className="text-zinc-400 flex w-full flex-col items-end justify-center text-left">
+                        {formatBookingDate(booking.time_start, booking.time_end)}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+            ))}
+          </Carousel>
+        )}
       </section>
       <LiveMap />
     </div>
