@@ -137,7 +137,7 @@ export default function About() {
           Join us. The African skies are open.
         </h2>
         <div className="mt-2 flex flex-row flex-wrap items-center justify-center gap-3">
-          <Button variant="filled" href="https://eaip2.vatssa.com/">
+          <Button variant="filled" href="https://docs.vatssa.com/">
             Join VATSSA
           </Button>
           <Button variant="outline" href="https://cc.vatssa.com/">
