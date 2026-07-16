@@ -8,7 +8,7 @@ const ContentSecurityPolicy = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === "production" ? "" : " 'unsafe-eval'"}`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: https://*.basemaps.cartocdn.com",
+  "img-src 'self' data: https://*.vatssa.com https://*.basemaps.cartocdn.com",
   "font-src 'self' data:",
   "connect-src 'self' https://*.vatssa.com",
 ].join("; ");
