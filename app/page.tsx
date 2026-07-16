@@ -10,6 +10,8 @@ import { useBookings } from "@/hooks/useBookings";
 import { useNews } from "@/hooks/useNews";
 import { LiveMap } from "@/components/map/live-map";
 
+const FORUM_LATEST_URL = "https://forum.vatssa.com/latest";
+
 function parseEventDate(value: string) {
   const parsed = new Date(value);
 
@@ -187,8 +189,7 @@ export default function Home() {
         {!isNewsLoading && !newsError && news.length > 0 && (
           <Carousel label="Latest news" itemClassName="md:w-1/2">
             {news.slice(0, 4).map((post) => {
-              const destination =
-                post.url || "https://community.vatssa.com/latest";
+              const destination = post.url || FORUM_LATEST_URL;
 
               return (
                 <Card
@@ -204,7 +205,13 @@ export default function Home() {
                     <p className="text-zinc-300 text-base overflow-hidden [display:-webkit-box] [-webkit-line-clamp:3] [-webkit-box-orient:vertical]">
                       {post.excerpt}
                     </p>
-                    <a className="text-white text-sm hover:underline cursor-pointer">
+                    <a
+                      href={destination}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(event) => event.stopPropagation()}
+                      className="text-white text-sm hover:underline cursor-pointer"
+                    >
                       Read More →
                     </a>
                   </CardContent>
@@ -214,7 +221,12 @@ export default function Home() {
           </Carousel>
         )}
 
-        <a className="text-neutral-400 text-sm hover:underline cursor-pointer">
+        <a
+          href={FORUM_LATEST_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-neutral-400 text-sm hover:underline cursor-pointer"
+        >
           View All →
         </a>
       </section>
