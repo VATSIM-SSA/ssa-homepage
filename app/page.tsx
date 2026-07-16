@@ -223,7 +223,7 @@ export default function Home() {
                       <img
                         src={post.image}
                         alt=""
-                        className="w-full h-40 object-cover rounded-md mb-3"
+                        className="mb-3 w-full aspect-video rounded-md object-contain bg-zinc-950/40"
                       />
                     )}
                     <CardHeader>{post.title}</CardHeader>
