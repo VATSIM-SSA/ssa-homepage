@@ -11,20 +11,23 @@ const VIEW_BOUNDS: L.LatLngBoundsExpression = [
   [30, 64],
 ];
 
+// Base sectors are OUTLINE ONLY — filling every FIR stacks overlapping sectors
+// into a muddy teal wash. Crisp teal borders read as clean airspace; only the
+// sectors with a controller online get a green fill so active airspace pops.
 const FIR_BASE_STYLE: L.PathOptions = {
   color: "#0197B0",
   weight: 1,
-  opacity: 0.45,
+  opacity: 0.55,
   fillColor: "#0197B0",
-  fillOpacity: 0.04,
+  fillOpacity: 0,
 };
 
 const FIR_ONLINE_STYLE: L.PathOptions = {
   color: "#7BD758",
-  weight: 1.4,
-  opacity: 0.95,
+  weight: 1.8,
+  opacity: 1,
   fillColor: "#7BD758",
-  fillOpacity: 0.16,
+  fillOpacity: 0.14,
 };
 
 const ATC_COLORS: Record<string, string> = {
