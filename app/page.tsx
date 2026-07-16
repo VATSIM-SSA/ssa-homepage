@@ -10,7 +10,9 @@ import { useBookings } from "@/hooks/useBookings";
 import { useNews } from "@/hooks/useNews";
 import { LiveMap } from "@/components/map/live-map";
 
-const FORUM_LATEST_URL = "https://forum.vatssa.com/latest";
+// News is the forum's Announcements category, so both the "View All" link and
+// the per-card fallback should land there rather than on everything latest.
+const FORUM_LATEST_URL = "https://forum.vatssa.com/c/announcements/5";
 
 function parseEventDate(value: string) {
   const parsed = new Date(value);
