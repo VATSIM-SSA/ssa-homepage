@@ -30,7 +30,28 @@ export async function GET(request: NextRequest) {
 
         const body = await response.text();
 
-        return new Response(body, {
+        // Discourse returns post_url as a site-relative path ("/t/slug/12/1"),
+        // which the browser resolves against this site rather than the forum.
+        // Rewrite it against the NEWS_API origin before handing it on.
+        let payload = body;
+
+        try {
+            const data = JSON.parse(body);
+
+            if (Array.isArray(data?.latest_posts)) {
+                for (const post of data.latest_posts) {
+                    if (typeof post?.post_url === "string" && post.post_url.startsWith("/")) {
+                        post.post_url = new URL(post.post_url, url.origin).toString();
+                    }
+                }
+
+                payload = JSON.stringify(data);
+            }
+        } catch {
+            // Not JSON, or a shape we don't recognise — pass it through untouched.
+        }
+
+        return new Response(payload, {
             status: response.status,
             headers: {
                 "content-type": response.headers.get("content-type") ?? "application/json",
