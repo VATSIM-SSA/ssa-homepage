@@ -43,6 +43,18 @@ export async function GET(request: NextRequest) {
                     if (typeof post?.post_url === "string" && post.post_url.startsWith("/")) {
                         post.post_url = new URL(post.post_url, url.origin).toString();
                     }
+
+                    // First image in the rendered post, absolutised so the
+                    // browser fetches it from the forum rather than this site.
+                    if (typeof post?.cooked === "string") {
+                        const match = post.cooked.match(/<img[^>]+src=["']([^"']+)["']/i);
+                        if (match) {
+                            const src = match[1];
+                            post.image = src.startsWith("/")
+                                ? new URL(src, url.origin).toString()
+                                : src;
+                        }
+                    }
                 }
 
                 payload = JSON.stringify(data);
