@@ -8,9 +8,13 @@ import { Image } from "@/components/ui/image";
 import { useEvents, type EventBooking } from "@/hooks/useEvents";
 import { useBookings } from "@/hooks/useBookings";
 import { useNews } from "@/hooks/useNews";
+import { useStaff } from "@/hooks/useStaff";
 import { LiveMap } from "@/components/map/live-map";
+import { useMemo } from "react";
 
-const FORUM_LATEST_URL = "https://forum.vatssa.com/latest";
+// News is the forum's Announcements category, so both the "View All" link and
+// the per-card fallback should land there rather than on everything latest.
+const FORUM_LATEST_URL = "https://forum.vatssa.com/c/announcements/5";
 
 function parseEventDate(value: string) {
   const parsed = new Date(value);
@@ -98,6 +102,22 @@ export default function Home() {
     error: bookingsError,
   } = useBookings(8);
   const { news, isLoading: isNewsLoading, error: newsError } = useNews(4);
+  const { staffGroups } = useStaff();
+  const staffCodes = useMemo(() => {
+    const codes: Record<string, string> = {};
+    for (const members of Object.values(staffGroups)) {
+      for (const member of members) {
+        const [cid, code] = (member.cid ?? "").split(" - ").map((p) => p.trim());
+        if (!code || !/^\d+$/.test(cid)) continue;
+        const held = parseInt(code.replace(/\D/g, ""), 10);
+        const existing = codes[cid];
+        if (!existing || held < parseInt(existing.replace(/\D/g, ""), 10)) {
+          codes[cid] = code;
+        }
+      }
+    }
+    return codes;
+  }, [staffGroups]);
   const upcomingEvents = [...events].sort(
     (left, right) =>
       parseEventDate(left.startTime).getTime() -
@@ -122,7 +142,7 @@ export default function Home() {
         </p>
       </div>
 
-      <section className="h-[100vh] relative z-10 flex w-full max-w-7xl flex-col items-center justify-center px-6 mx-4 py-16 text-center">
+      <section className="h-[100vh] relative z-10 flex w-full max-w-7xl flex-col items-center justify-center px-6 mx-4 py-8 text-center">
         <p className="mb-4 text-sm font-semibold uppercase tracking-[0.35em] text-secondary">
           VATSIM Sub-Sahara Africa
         </p>
@@ -142,7 +162,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative z-10 flex w-full max-w-7xl flex-col gap-6 items-center justify-center px-6 mx-4 py-16 text-center">
+      <section className="relative z-10 flex w-full max-w-7xl flex-col gap-6 items-center justify-center px-6 mx-4 py-8 text-center">
         <Header text="About Us" />
 
         <div className="flex xl:flex-row flex-col w-full gap-12 items-center justify-center">
@@ -171,7 +191,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative z-10 flex w-full max-w-7xl flex-col gap-6 items-center justify-center px-6 mx-12 py-16 text-center">
+      <section className="relative z-10 flex w-full max-w-7xl flex-col gap-6 items-center justify-center px-6 mx-12 py-8 text-center">
         <Header text="Latest News" />
 
         {isNewsLoading && <p className="text-zinc-300">Loading latest news...</p>}
@@ -198,9 +218,21 @@ export default function Home() {
                   className="h-full cursor-pointer transition-all duration-200"
                 >
                   <CardContent>
+                    {post.image && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={post.image}
+                        alt=""
+                        className="w-full h-40 object-cover rounded-md mb-3"
+                      />
+                    )}
                     <CardHeader>{post.title}</CardHeader>
                     <CardTimestamp>
-                      by {post.author} - {formatNewsDate(post.publishedAt)}
+                      by {post.author}
+                      {post.authorCid && staffCodes[post.authorCid]
+                        ? ` (${staffCodes[post.authorCid]})`
+                        : ""}{" "}
+                      - {formatNewsDate(post.publishedAt)}
                     </CardTimestamp>
                     <p className="text-zinc-300 text-base overflow-hidden [display:-webkit-box] [-webkit-line-clamp:3] [-webkit-box-orient:vertical]">
                       {post.excerpt}
@@ -231,7 +263,7 @@ export default function Home() {
         </a>
       </section>
 
-      <section className="relative z-10 flex w-full max-w-7xl flex-col gap-6 items-center justify-center px-6 mx-12 py-16 text-center">
+      <section className="relative z-10 flex w-full max-w-7xl flex-col gap-6 items-center justify-center px-6 mx-12 py-8 text-center">
         <Header text="Upcoming Events" />
 
         {isLoading && <p className="text-zinc-300">Loading upcoming events...</p>}
@@ -283,7 +315,7 @@ export default function Home() {
         )}
       </section>
 
-      <section className="relative z-10 flex w-full max-w-7xl flex-col gap-6 items-center justify-center px-6 mx-12 py-16 text-center">
+      <section className="relative z-10 flex w-full max-w-7xl flex-col gap-6 items-center justify-center px-6 mx-12 py-8 text-center">
         <Header text="Upcoming Bookings" />
 
         {isBookingsLoading && (

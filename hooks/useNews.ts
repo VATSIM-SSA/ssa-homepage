@@ -11,6 +11,7 @@ type RawNewsPost = {
 	excerpt?: string | null;
 	cooked?: string | null;
 	post_url?: string | null;
+	image?: string | null;
 };
 
 type NewsEnvelope = { latest_posts: RawNewsPost[] };
@@ -26,9 +27,11 @@ export type NewsPost = {
 	id: number;
 	title: string;
 	author: string;
+	authorCid: string | null;
 	publishedAt: string;
 	excerpt: string;
 	url: string | null;
+	image: string | null;
 };
 
 function isObject(value: unknown): value is Record<string, unknown> {
@@ -51,16 +54,22 @@ function stripHtml(input: string): string {
 	return input.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
 }
 
+function stripImageMarkup(input: string): string {
+	return input
+		.replace(/!\[[^\]]*\]\([^)]*\)/g, " ") // markdown images
+		.replace(/\[image\]/gi, " ") // Discourse [image] placeholder
+		.replace(/\s+/g, " ")
+		.trim();
+}
+
 function getExcerpt(post: RawNewsPost): string {
-	if (post.excerpt && post.excerpt.trim().length > 0) {
-		return stripHtml(post.excerpt);
-	}
+	const source =
+		(post.excerpt && post.excerpt.trim().length > 0 && post.excerpt) ||
+		(post.cooked && post.cooked.trim().length > 0 && post.cooked) ||
+		"";
 
-	if (post.cooked && post.cooked.trim().length > 0) {
-		return stripHtml(post.cooked);
-	}
-
-	return "No summary available for this update yet.";
+	const text = stripImageMarkup(stripHtml(source));
+	return text.length > 0 ? text : "No summary available for this update yet.";
 }
 
 function normalisePost(post: RawNewsPost): NewsPost {
@@ -68,9 +77,11 @@ function normalisePost(post: RawNewsPost): NewsPost {
 		id: post.id,
 		title: post.topic_title || "Untitled news post",
 		author: post.name || post.username || "VATSSA",
+		authorCid: post.username || null,
 		publishedAt: post.created_at || "",
 		excerpt: getExcerpt(post),
 		url: post.post_url || null,
+		image: post.image || null,
 	};
 }
 
