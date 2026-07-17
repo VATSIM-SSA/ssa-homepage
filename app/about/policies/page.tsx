@@ -11,7 +11,7 @@ export default function Policies() {
   return (
     <div className="px-4 relative flex flex-col min-h-dvh w-full items-center justify-center overflow-hidden bg-zinc-950">
       <Image
-        src="/images/south-african-a340.png"
+        src="/images/south-african-a340.webp"
         alt="Hero Banner"
         className="absolute top-0 left-0 h-[50vh] w-full object-cover"
       />
