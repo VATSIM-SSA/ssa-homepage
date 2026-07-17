@@ -1,5 +1,39 @@
 import { NextRequest } from "next/server";
 
+// The posts firehose carries no tags, but the news cards want them to choose a
+// placeholder image. Tags live on topics, so pull the Announcements category
+// once and key its tags by topic id. Best-effort: on any failure the cards
+// simply fall back to no image.
+async function fetchAnnouncementTags(origin: string): Promise<Map<number, string[]>> {
+    const map = new Map<number, string[]>();
+
+    try {
+        const response = await fetch(
+            new URL("/c/announcements/5.json", origin).toString(),
+            { cache: "no-store" },
+        );
+
+        if (!response.ok) {
+            return map;
+        }
+
+        const data = await response.json();
+        const topics = data?.topic_list?.topics;
+
+        if (Array.isArray(topics)) {
+            for (const topic of topics) {
+                if (typeof topic?.id === "number" && Array.isArray(topic?.tags)) {
+                    map.set(topic.id, topic.tags);
+                }
+            }
+        }
+    } catch {
+        // Tags are a nice-to-have; leave the map empty on any error.
+    }
+
+    return map;
+}
+
 export async function GET(request: NextRequest) {
     try {
         const searchParams = request.nextUrl.searchParams;
@@ -39,9 +73,17 @@ export async function GET(request: NextRequest) {
             const data = JSON.parse(body);
 
             if (Array.isArray(data?.latest_posts)) {
+                const tagsByTopic = await fetchAnnouncementTags(url.origin);
+
                 for (const post of data.latest_posts) {
                     if (typeof post?.post_url === "string" && post.post_url.startsWith("/")) {
                         post.post_url = new URL(post.post_url, url.origin).toString();
+                    }
+
+                    // Attach the topic's tags so the card can pick a placeholder
+                    // image when the post has none of its own.
+                    if (typeof post?.topic_id === "number") {
+                        post.tags = tagsByTopic.get(post.topic_id) ?? [];
                     }
 
                     // First image in the rendered post, absolutised so the

@@ -16,6 +16,26 @@ import { useMemo } from "react";
 // the per-card fallback should land there rather than on everything latest.
 const FORUM_LATEST_URL = "https://forum.vatssa.com/c/announcements/5";
 
+// When an announcement carries no image of its own, fall back to a placeholder
+// chosen by its forum tag. Order matters: an ATC-role vacancy is tagged
+// "Vacancies", so that wins over "ATC". "Silent" is a notification modifier,
+// not a type, so it is ignored.
+const NEWS_PLACEHOLDERS: ReadonlyArray<{ tag: string; src: string }> = [
+  { tag: "Vacancies", src: "/images/announcement-vacancy.png" },
+  { tag: "ATC", src: "/images/announcement-atc.png" },
+  { tag: "Divisional", src: "/images/announcement-divisional.png" },
+];
+
+function placeholderForTags(tags: string[]): string | null {
+  for (const { tag, src } of NEWS_PLACEHOLDERS) {
+    if (tags.includes(tag)) {
+      return src;
+    }
+  }
+
+  return null;
+}
+
 function parseEventDate(value: string) {
   const parsed = new Date(value);
 
@@ -210,6 +230,7 @@ export default function Home() {
           <Carousel label="Latest news" itemClassName="md:w-1/2">
             {news.slice(0, 4).map((post) => {
               const destination = post.url || FORUM_LATEST_URL;
+              const imageSrc = post.image ?? placeholderForTags(post.tags);
 
               return (
                 <Card
@@ -218,10 +239,10 @@ export default function Home() {
                   className="h-full cursor-pointer transition-all duration-200"
                 >
                   <CardContent>
-                    {post.image && (
+                    {imageSrc && (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
-                        src={post.image}
+                        src={imageSrc}
                         alt=""
                         className="mb-3 w-full aspect-video rounded-md object-contain bg-zinc-950/40"
                       />

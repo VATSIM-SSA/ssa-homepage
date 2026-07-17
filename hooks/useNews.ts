@@ -12,6 +12,7 @@ type RawNewsPost = {
 	cooked?: string | null;
 	post_url?: string | null;
 	image?: string | null;
+	tags?: string[] | null;
 };
 
 type NewsEnvelope = { latest_posts: RawNewsPost[] };
@@ -32,6 +33,7 @@ export type NewsPost = {
 	excerpt: string;
 	url: string | null;
 	image: string | null;
+	tags: string[];
 };
 
 function isObject(value: unknown): value is Record<string, unknown> {
@@ -82,6 +84,7 @@ function normalisePost(post: RawNewsPost): NewsPost {
 		excerpt: getExcerpt(post),
 		url: post.post_url || null,
 		image: post.image || null,
+		tags: Array.isArray(post.tags) ? post.tags : [],
 	};
 }
 
