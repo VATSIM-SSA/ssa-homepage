@@ -94,7 +94,7 @@ export default function About() {
             <img
               src="/images/ssa-airspace.png"
               alt="Map of VATSSA airspace across Sub-Saharan Africa"
-              className="aspect-square rounded-xl object-contain"
+              className="aspect-square max-h-96 w-full rounded-xl object-contain"
             />
           </div>
         </div>

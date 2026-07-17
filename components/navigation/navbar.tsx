@@ -42,6 +42,13 @@ export default function Navbar() {
               <DropdownItem onClick={() => router.push("/about")}>
                 About VATSSA
               </DropdownItem>
+              <DropdownItem onClick={() => router.push("/about/staff-team")}>
+                Staff Team
+              </DropdownItem>
+              <DropdownItem onClick={() => router.push("/donate")}>
+                Donate
+              </DropdownItem>
+              <DropdownSeperator />
               <DropdownItem
                 className="flex items-center gap-1"
                 onClick={() =>
@@ -55,12 +62,7 @@ export default function Navbar() {
               >
                 Meeting Minutes
               </DropdownItem>
-              <DropdownItem onClick={() => router.push("/about/staff-team")}>
-                Staff Team
-              </DropdownItem>
-              <DropdownItem onClick={() => router.push("/donate")}>
-                Donate
-              </DropdownItem>
+              <DropdownSeperator />
               <DropdownItem
                 className="flex items-center gap-1"
                 onClick={() =>
@@ -91,6 +93,7 @@ export default function Navbar() {
               <DropdownItem onClick={() => router.push("/about/partner-rvas")}>
                 Partner rVAs
               </DropdownItem>
+              <DropdownSeperator />
               <DropdownItem
                 className="flex items-center gap-1"
                 onClick={() =>
@@ -255,6 +258,25 @@ export default function Navbar() {
                 </Button>
                 <Button
                   variant="menu"
+                  onClick={() => {
+                    setShowMobileMenu(false);
+                    router.push("/about/staff-team");
+                  }}
+                >
+                  Staff Team
+                </Button>
+                <Button
+                  variant="menu"
+                  onClick={() => {
+                    setShowMobileMenu(false);
+                    router.push("/donate");
+                  }}
+                >
+                  Donate
+                </Button>
+                <div className="mx-4 my-2 h-px w-[calc(100%-2rem)] bg-zinc-700" />
+                <Button
+                  variant="menu"
                   className="flex items-center gap-2"
                   onClick={() => {
                     setShowMobileMenu(false);
@@ -272,24 +294,7 @@ export default function Navbar() {
                 >
                   Meeting Minutes
                 </Button>
-                <Button
-                  variant="menu"
-                  onClick={() => {
-                    setShowMobileMenu(false);
-                    router.push("/about/staff-team");
-                  }}
-                >
-                  Staff Team
-                </Button>
-                <Button
-                  variant="menu"
-                  onClick={() => {
-                    setShowMobileMenu(false);
-                    router.push("/donate");
-                  }}
-                >
-                  Donate
-                </Button>
+                <div className="mx-4 my-2 h-px w-[calc(100%-2rem)] bg-zinc-700" />
                 <Button
                   variant="menu"
                   className="flex items-center gap-2"
@@ -333,6 +338,7 @@ export default function Navbar() {
                 >
                   Partner rVAs
                 </Button>
+                <div className="mx-4 my-2 h-px w-[calc(100%-2rem)] bg-zinc-700" />
                 <Button
                   variant="menu"
                   className="flex items-center gap-2"

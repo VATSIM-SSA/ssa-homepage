@@ -254,21 +254,26 @@ export default function Home() {
                     ) : undefined
                   }
                 >
-                  <CardContent>
-                    {/* Clamp long titles and excerpts to a couple of lines, but
-                        don't reserve the space: the image anchors the top of the
-                        card, so a short title should sit tight to it. */}
-                    <CardHeader className="overflow-hidden [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical]">
+                  {/* CardContent stretches to fill whatever height the row's
+                      tallest card sets, so the image always sits flush at the
+                      top with no gap below it. Title and timestamp keep their
+                      natural height (shrink-0); the excerpt is the one flexible
+                      element, so it grows to fill whatever the title's line
+                      count left over — a one-line title means more excerpt is
+                      visible. Read More is pinned to the very end, so it lands
+                      at the same height on every card regardless. */}
+                  <CardContent className="flex-1">
+                    <CardHeader className="shrink-0 overflow-hidden [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical]">
                       {post.title}
                     </CardHeader>
-                    <CardTimestamp>
+                    <CardTimestamp className="shrink-0">
                       by {post.author}
                       {post.authorCid && staffCodes[post.authorCid]
                         ? ` (${staffCodes[post.authorCid]})`
                         : ""}{" "}
                       - {formatNewsDate(post.publishedAt)}
                     </CardTimestamp>
-                    <p className="text-zinc-300 text-base overflow-hidden [display:-webkit-box] [-webkit-line-clamp:3] [-webkit-box-orient:vertical]">
+                    <p className="min-h-0 flex-1 overflow-hidden text-zinc-300 text-base">
                       {post.excerpt}
                     </p>
                     <a
@@ -276,7 +281,7 @@ export default function Home() {
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={(event) => event.stopPropagation()}
-                      className="text-white text-sm hover:underline cursor-pointer"
+                      className="shrink-0 text-white text-sm hover:underline cursor-pointer"
                     >
                       Read More →
                     </a>
@@ -331,15 +336,20 @@ export default function Home() {
                     />
                   }
                 >
-                  <CardContent>
-                    <CardHeader>{event.title}</CardHeader>
-                    <CardTimestamp>
+                  {/* Same layout as the news cards: excerpt is the one
+                      flexible element, Read More is pinned to the end, so
+                      every card in the row bottoms out at the same height. */}
+                  <CardContent className="flex-1">
+                    <CardHeader className="shrink-0 overflow-hidden [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical]">
+                      {event.title}
+                    </CardHeader>
+                    <CardTimestamp className="shrink-0">
                       {formatEventWindow(event.startTime, event.endTime)} UTC
                     </CardTimestamp>
-                    <p className="text-zinc-300 text-base overflow-hidden h-12 overflow-y-hidden">
+                    <p className="min-h-0 flex-1 overflow-hidden text-zinc-300 text-base">
                       {getEventDescription(event)}
                     </p>
-                    <p className="text-white text-sm hover:underline cursor-pointer">
+                    <p className="shrink-0 text-white text-sm hover:underline cursor-pointer">
                       Read More →{" "}
                     </p>
                   </CardContent>
