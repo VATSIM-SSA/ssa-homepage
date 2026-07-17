@@ -16,6 +16,11 @@ import { useMemo } from "react";
 // the per-card fallback should land there rather than on everything latest.
 const FORUM_LATEST_URL = "https://forum.vatssa.com/c/announcements/5";
 
+// Every content section shares one set of classes so the blocks line up on the
+// same width and sit an even distance apart.
+const SECTION_CLASSES =
+  "relative z-10 flex w-full max-w-7xl flex-col gap-6 items-center justify-center px-6 py-10 text-center";
+
 // When an announcement carries no image of its own, fall back to a placeholder
 // chosen by its forum tag. Order matters: an ATC-role vacancy is tagged
 // "Vacancies", so that wins over "ATC". "Silent" is a notification modifier,
@@ -162,7 +167,7 @@ export default function Home() {
         </p>
       </div>
 
-      <section className="h-[100vh] relative z-10 flex w-full max-w-7xl flex-col items-center justify-center px-6 mx-4 py-8 text-center">
+      <section className="h-[100vh] relative z-10 flex w-full max-w-7xl flex-col items-center justify-center px-6 py-8 text-center">
         <p className="mb-4 text-sm font-semibold uppercase tracking-[0.35em] text-secondary">
           VATSIM Sub-Sahara Africa
         </p>
@@ -182,10 +187,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative z-10 flex w-full max-w-7xl flex-col gap-6 items-center justify-center px-6 mx-4 py-8 text-center">
+      <section className={SECTION_CLASSES}>
         <Header text="About Us" />
 
-        <div className="flex xl:flex-row flex-col w-full gap-12 items-center justify-center">
+        <div className="flex xl:flex-row flex-col w-full gap-8 items-center justify-center">
           <div className="w-full xl:w-1/2 text-white flex flex-col items-center xl:items-start justify-start gap-4">
             <p className="text-center xl:text-left">
               VATSSA is a community first. We are students and engineers,
@@ -205,13 +210,13 @@ export default function Home() {
             <img
               src="/images/ssa-airspace.png"
               alt="Map of VATSSA airspace across Sub-Saharan Africa"
-              className="aspect-square rounded-xl object-contain"
+              className="aspect-square max-h-96 w-full rounded-xl object-contain"
             />
           </div>
         </div>
       </section>
 
-      <section className="relative z-10 flex w-full max-w-7xl flex-col gap-6 items-center justify-center px-6 mx-12 py-8 text-center">
+      <section className={SECTION_CLASSES}>
         <Header text="Latest News" />
 
         {isNewsLoading && <p className="text-zinc-300">Loading latest news...</p>}
@@ -237,17 +242,24 @@ export default function Home() {
                   key={post.id}
                   onClick={() => window.open(destination, "_blank")}
                   className="h-full cursor-pointer transition-all duration-200"
-                >
-                  <CardContent>
-                    {imageSrc && (
+                  snap="top"
+                  media={
+                    imageSrc ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
                         src={imageSrc}
                         alt=""
-                        className="mb-3 w-full aspect-video rounded-md object-contain bg-zinc-950/40"
+                        className="aspect-video w-full object-cover bg-zinc-950/40"
                       />
-                    )}
-                    <CardHeader>{post.title}</CardHeader>
+                    ) : undefined
+                  }
+                >
+                  <CardContent>
+                    {/* Title and excerpt reserve a fixed number of lines so the
+                        cards line up when a title runs onto a second line. */}
+                    <CardHeader className="overflow-hidden [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical] [min-height:2lh]">
+                      {post.title}
+                    </CardHeader>
                     <CardTimestamp>
                       by {post.author}
                       {post.authorCid && staffCodes[post.authorCid]
@@ -255,7 +267,7 @@ export default function Home() {
                         : ""}{" "}
                       - {formatNewsDate(post.publishedAt)}
                     </CardTimestamp>
-                    <p className="text-zinc-300 text-base overflow-hidden [display:-webkit-box] [-webkit-line-clamp:3] [-webkit-box-orient:vertical]">
+                    <p className="text-zinc-300 text-base overflow-hidden [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical] [min-height:2lh]">
                       {post.excerpt}
                     </p>
                     <a
@@ -274,17 +286,18 @@ export default function Home() {
           </Carousel>
         )}
 
-        <a
+        <Button
+          variant="filled"
           href={FORUM_LATEST_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-neutral-400 text-sm hover:underline cursor-pointer"
+          className="mt-2"
         >
-          View All →
-        </a>
+          View All News
+        </Button>
       </section>
 
-      <section className="relative z-10 flex w-full max-w-7xl flex-col gap-6 items-center justify-center px-6 mx-12 py-8 text-center">
+      <section className={SECTION_CLASSES}>
         <Header text="Upcoming Events" />
 
         {isLoading && <p className="text-zinc-300">Loading upcoming events...</p>}
@@ -336,7 +349,7 @@ export default function Home() {
         )}
       </section>
 
-      <section className="relative z-10 flex w-full max-w-7xl flex-col gap-6 items-center justify-center px-6 mx-12 py-8 text-center">
+      <section className={SECTION_CLASSES}>
         <Header text="Upcoming Bookings" />
 
         {isBookingsLoading && (

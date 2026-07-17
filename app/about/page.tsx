@@ -11,30 +11,32 @@ export const metadata: Metadata = {
     "VATSSA is the VATSIM Sub-Saharan Africa Division, part of VATEMEA. Learn who we are, what we do, and why the region's virtual skies matter.",
 };
 
+// The four descriptions are kept to roughly the same length so the cards line
+// up when the grid puts them in a single row.
 const pillars = [
   {
     icon: TowerControl,
     title: "Air Traffic Control",
     description:
-      "From tower to oceanic control, our ATC team trains and certifies controllers to bring Sub-Saharan Africa's skies to life with realism and professionalism.",
+      "From tower to oceanic control, our ATC team trains and certifies the controllers who bring the airspace of Sub-Saharan Africa to life.",
   },
   {
     icon: Plane,
     title: "Flight Simulation",
     description:
-      "Pilots from across the globe file into our airspace daily, flying into the airports and across the routes that define this region.",
+      "Pilots from around the world file into our airspace every day, flying the airports and the long routes that define this part of Africa.",
   },
   {
     icon: PartyPopper,
     title: "Community Events",
     description:
-      "Our flagship event, Cross Africa, unites pilots and controllers across the continent in a single, sprawling celebration of African aviation, a tradition that continues to grow every year.",
+      "Cross Africa, our flagship event, brings pilots and controllers together right across the continent, and it grows larger every year.",
   },
   {
     icon: GraduationCap,
     title: "Training & Growth",
     description:
-      "Through structured ATC training programs and a dedicated support team, we help our members go from first login to first clearance to fully rated controller.",
+      "Structured training and a dedicated support team carry members from a first login, to a first clearance, to a fully rated controller.",
   },
 ];
 

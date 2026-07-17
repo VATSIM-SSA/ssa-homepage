@@ -107,24 +107,28 @@ export function Carousel({
 
       {hasPages && (
         <>
-          <button
-            type="button"
-            aria-label="Previous slide"
-            disabled={page === 0}
-            onClick={() => scrollToPage(page - 1)}
-            className="absolute -left-2 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-zinc-800/90 text-white transition-all duration-200 hover:bg-zinc-700 disabled:cursor-default disabled:opacity-30 md:-left-5"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </button>
-          <button
-            type="button"
-            aria-label="Next slide"
-            disabled={page === pageCount - 1}
-            onClick={() => scrollToPage(page + 1)}
-            className="absolute -right-2 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-zinc-800/90 text-white transition-all duration-200 hover:bg-zinc-700 disabled:cursor-default disabled:opacity-30 md:-right-5"
-          >
-            <ChevronRight className="h-5 w-5" />
-          </button>
+          {/* Arrows are hidden rather than disabled at either end, and sit in the
+              section's gutter so they never cover a card. */}
+          {page > 0 && (
+            <button
+              type="button"
+              aria-label="Previous slide"
+              onClick={() => scrollToPage(page - 1)}
+              className="absolute -left-1 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-zinc-800/90 text-white shadow-lg transition-all duration-200 hover:bg-zinc-700 md:-left-6"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+          )}
+          {page < pageCount - 1 && (
+            <button
+              type="button"
+              aria-label="Next slide"
+              onClick={() => scrollToPage(page + 1)}
+              className="absolute -right-1 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-zinc-800/90 text-white shadow-lg transition-all duration-200 hover:bg-zinc-700 md:-right-6"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          )}
 
           <div className="mt-6 flex w-full items-center justify-center gap-2">
             {Array.from({ length: pageCount }, (_, index) => (

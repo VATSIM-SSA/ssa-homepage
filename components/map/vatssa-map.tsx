@@ -108,6 +108,10 @@ export default function VatssaMap({ data }: { data: VatssaData }) {
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return;
 
+    // The ref holds one Map instance for the component's life, so capturing it
+    // here is safe and keeps the cleanup off a ref that lint can't verify.
+    const firLayers = firLayersRef.current;
+
     const map = L.map(containerRef.current, {
       zoomControl: true,
       attributionControl: true,
@@ -169,9 +173,8 @@ export default function VatssaMap({ data }: { data: VatssaData }) {
       mapRef.current = null;
       pilotLayerRef.current = null;
       atcLayerRef.current = null;
-      firLayersRef.current.clear();
+      firLayers.clear();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function applyHighlights(firsOnline: string[]) {

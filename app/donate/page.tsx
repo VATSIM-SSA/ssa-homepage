@@ -1,16 +1,5 @@
 import { Heart, ExternalLink } from "lucide-react";
 import { Image } from "@/components/ui/image";
-import { Button } from "@/components/ui/button";
-
-type StaffMember = {
-  id: string;
-  name: string;
-  role: string;
-  email?: string;
-  cid?: string;
-};
-
-type StaffGroups = Record<string, StaffMember[]>;
 
 export default function Donate() {
   return (
