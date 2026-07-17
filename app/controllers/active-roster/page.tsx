@@ -122,7 +122,7 @@ export default function Roster() {
   return (
     <div className="relative flex min-h-dvh w-full flex-col items-center justify-center overflow-hidden bg-zinc-950 px-4">
       <Image
-        src="/images/south-african-a340.png"
+        src="/images/south-african-a340.webp"
         alt="Hero Banner"
         className="absolute top-0 left-0 h-[50vh] w-full object-cover"
       />

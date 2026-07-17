@@ -180,7 +180,7 @@ export default function Navbar() {
                 className="flex items-center gap-1"
                 onClick={() => window.open("https://bookings.vatssa.com/", "_blank")}
               >
-                Bookings <ExternalLink className="h-4 w-auto" />
+                Pilot Bookings <ExternalLink className="h-4 w-auto" />
               </DropdownItem>
               <DropdownItem
                 className="flex items-center gap-1"
@@ -421,7 +421,7 @@ export default function Navbar() {
                   { label: "Forum", href: "https://forum.vatssa.com/" },
                   { label: "Training Platform", href: "https://training.vatssa.com/" },
                   { label: "Control Centre", href: "https://cc.vatssa.com/" },
-                  { label: "Bookings", href: "https://bookings.vatssa.com/" },
+                  { label: "Pilot Bookings", href: "https://bookings.vatssa.com/" },
                   { label: "Docs", href: "https://docs.vatssa.com/" },
                   { label: "GitHub", href: "https://github.com/VATSIM-SSA" },
                   { label: "Discord", href: "https://community.vatsim.net/" },

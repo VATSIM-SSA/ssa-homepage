@@ -74,8 +74,50 @@ function stripImageMarkup(input: string): string {
 		.trim();
 }
 
+const NAMED_ENTITIES: Record<string, string> = {
+	amp: "&",
+	lt: "<",
+	gt: ">",
+	quot: '"',
+	apos: "'",
+	nbsp: " ",
+	hellip: "…",
+	mdash: "—",
+	ndash: "–",
+	rsquo: "’",
+	lsquo: "‘",
+	rdquo: "”",
+	ldquo: "“",
+};
+
+// Discourse serves excerpts as HTML, so entities like "&hellip;" and "&#39;"
+// survive tag-stripping and would render literally. Decode the common named
+// ones plus any numeric reference.
+function decodeEntities(input: string): string {
+	return input.replace(/&(#x?[0-9a-f]+|[a-z]+);/gi, (match, code) => {
+		if (code[0] === "#") {
+			const codePoint =
+				code[1].toLowerCase() === "x"
+					? parseInt(code.slice(2), 16)
+					: parseInt(code.slice(1), 10);
+
+			return Number.isFinite(codePoint)
+				? String.fromCodePoint(codePoint)
+				: match;
+		}
+
+		return NAMED_ENTITIES[code.toLowerCase()] ?? match;
+	});
+}
+
 function toPlainText(input: string): string {
-	return stripImageMarkup(stripHtml(stripImageBlocks(input)));
+	const text = stripImageMarkup(stripHtml(stripImageBlocks(input)));
+
+	// Decode entities last, then tidy the trailing ellipsis Discourse adds so
+	// the CSS line-clamp is the only thing that truncates on screen.
+	return decodeEntities(text)
+		.replace(/\s*(?:…|\.\.\.)\s*$/, "")
+		.trim();
 }
 
 function getExcerpt(post: RawNewsPost): string {

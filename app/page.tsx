@@ -26,9 +26,9 @@ const SECTION_CLASSES =
 // "Vacancies", so that wins over "ATC". "Silent" is a notification modifier,
 // not a type, so it is ignored.
 const NEWS_PLACEHOLDERS: ReadonlyArray<{ tag: string; src: string }> = [
-  { tag: "Vacancies", src: "/images/announcement-vacancy.png" },
-  { tag: "ATC", src: "/images/announcement-atc.png" },
-  { tag: "Divisional", src: "/images/announcement-divisional.png" },
+  { tag: "Vacancies", src: "/images/announcement-vacancy.webp" },
+  { tag: "ATC", src: "/images/announcement-atc.webp" },
+  { tag: "Divisional", src: "/images/announcement-divisional.webp" },
 ];
 
 function placeholderForTags(tags: string[]): string | null {
@@ -156,7 +156,7 @@ export default function Home() {
   return (
     <div className="px-4 relative flex flex-col min-h-dvh w-full items-center justify-center overflow-hidden bg-zinc-950">
       <img
-        src="/images/south-african-a340.png"
+        src="/images/south-african-a340.webp"
         alt="South African Airways A340"
         className="absolute top-0 left-0 h-dvh w-full object-cover"
       />
