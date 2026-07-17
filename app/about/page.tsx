@@ -51,7 +51,7 @@ export default function About() {
 
       <div className="absolute h-[50vh] inset-0 bg-gradient-to-b from-zinc-950/30 via-zinc-950/45 to-zinc-950" />
 
-      <section className="pt-[104px] h-[50vh] relative z-10 flex w-full max-w-7xl flex-col items-center justify-center px-6 mx-12 text-center">
+      <section className="pt-[104px] h-[50vh] relative z-10 flex w-full max-w-7xl flex-col items-center justify-center px-6 text-center">
         <h1 className="max-w-4xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl">
           About VATSSA
         </h1>
@@ -60,7 +60,7 @@ export default function About() {
         </p>
       </section>
 
-      <section className="relative z-10 flex w-full max-w-3xl flex-col gap-4 items-center justify-center px-6 mx-12 pt-6 pb-16 text-center">
+      <section className="relative z-10 flex w-full max-w-3xl flex-col gap-4 items-center justify-center px-6 pt-6 pb-10 text-center">
         <p className="text-zinc-200 leading-7">
           From the bustling approach into OR Tambo to the long oceanic
           stretches off the West African coast, VATSSA brings the airspace of
@@ -76,7 +76,7 @@ export default function About() {
         </p>
       </section>
 
-      <section className="relative z-10 flex w-full max-w-7xl flex-col gap-6 items-center justify-center px-6 mx-12 py-16 text-center">
+      <section className="relative z-10 flex w-full max-w-7xl flex-col gap-6 items-center justify-center px-6 py-10 text-center">
         <Header text="Who We Are" />
 
         <div className="flex xl:flex-row flex-col w-full gap-12 items-center justify-center">
@@ -100,7 +100,7 @@ export default function About() {
         </div>
       </section>
 
-      <section className="relative z-10 flex w-full max-w-7xl flex-col gap-6 items-center justify-center px-6 mx-12 py-16 text-center">
+      <section className="relative z-10 flex w-full max-w-7xl flex-col gap-6 items-center justify-center px-6 py-10 text-center">
         <Header text="What We Do" />
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 w-full">
@@ -118,7 +118,7 @@ export default function About() {
         </div>
       </section>
 
-      <section className="relative z-10 flex w-full max-w-7xl flex-col gap-6 items-center justify-center px-6 mx-12 py-16 text-center">
+      <section className="relative z-10 flex w-full max-w-7xl flex-col gap-6 items-center justify-center px-6 py-10 text-center">
         <Header text="Why It Matters" />
 
         <div className="bg-zinc-800/50 w-full flex flex-col gap-4 items-center p-10 rounded-xl">
@@ -134,7 +134,7 @@ export default function About() {
         </div>
       </section>
 
-      <section className="relative z-10 flex w-full max-w-7xl flex-col gap-6 items-center justify-center px-6 mx-12 py-16 text-center">
+      <section className="relative z-10 flex w-full max-w-7xl flex-col gap-6 items-center justify-center px-6 py-10 text-center">
         <h2 className="max-w-3xl text-2xl font-semibold tracking-tight text-white sm:text-3xl md:text-4xl">
           Join us. The African skies are open.
         </h2>

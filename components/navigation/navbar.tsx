@@ -50,6 +50,11 @@ export default function Navbar() {
               >
                 Our Policies
               </DropdownItem>
+              <DropdownItem
+                onClick={() => router.push("/about/meeting-minutes")}
+              >
+                Meeting Minutes
+              </DropdownItem>
               <DropdownItem onClick={() => router.push("/about/staff-team")}>
                 Staff Team
               </DropdownItem>
@@ -125,7 +130,7 @@ export default function Navbar() {
               <DropdownItem
                 className="flex items-center gap-1"
                 onClick={() =>
-                  (window.location.href = "https://cc.vatssa.com/")
+                  window.open("https://cc.vatssa.com/", "_blank")
                 }
               >
                 Active Roster <ExternalLink className="h-4 w-auto" />
@@ -199,7 +204,7 @@ export default function Navbar() {
               variant="feedback"
               className="ml-2"
               onClick={() =>
-                window.open("https://eaip2.vatssa.com/", "_blank")
+                window.open("https://cc.vatssa.com/feedback", "_blank")
               }
             >
               Feedback <ExternalLink className="h-4 w-auto" />
@@ -256,7 +261,16 @@ export default function Navbar() {
                     window.location.href = "https://vatssa.com/about/policies";
                   }}
                 >
-                  Our Policies 
+                  Our Policies
+                </Button>
+                <Button
+                  variant="menu"
+                  onClick={() => {
+                    setShowMobileMenu(false);
+                    router.push("/about/meeting-minutes");
+                  }}
+                >
+                  Meeting Minutes
                 </Button>
                 <Button
                   variant="menu"
@@ -324,7 +338,7 @@ export default function Navbar() {
                   className="flex items-center gap-2"
                   onClick={() => {
                     setShowMobileMenu(false);
-                    window.location.href = "https://bookings.vatssa.com/";
+                    window.open("https://bookings.vatssa.com/", "_blank");
                   }}
                 >
                   Pilot Bookings <ExternalLink className="h-4 w-auto" />
@@ -338,7 +352,7 @@ export default function Navbar() {
                   className="flex items-center gap-2"
                   onClick={() => {
                     setShowMobileMenu(false);
-                    window.location.href = "https://cc.vatssa.com/";
+                    window.open("https://cc.vatssa.com/", "_blank");
                   }}
                 >
                   Control Centre <ExternalLink className="h-4 w-auto" />
@@ -368,7 +382,7 @@ export default function Navbar() {
                   className="flex items-center gap-2"
                   onClick={() => {
                     setShowMobileMenu(false);
-                    window.location.href = "https://cc.vatssa.com/";
+                    window.open("https://cc.vatssa.com/", "_blank");
                   }}
                 >
                   Active Roster <ExternalLink className="h-4 w-auto" />
@@ -427,7 +441,7 @@ export default function Navbar() {
                   className="flex items-center gap-2"
                   onClick={() => {
                     setShowMobileMenu(false);
-                    window.open("https://eaip2.vatssa.com/", "_blank");
+                    window.open("https://cc.vatssa.com/feedback", "_blank");
                   }}
                 >
                   Feedback <ExternalLink className="h-4 w-auto" />

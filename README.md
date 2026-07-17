@@ -99,6 +99,7 @@ Set per environment via the `.env` file on the VPS — **never committed** (excl
 | `USERS_API` | Roster / online controllers source |
 | `EVENTS_API` | Events source |
 | `POLICIES_API` | Policy documents source |
+| `MINUTES_API` | Meeting minutes source (`files.vatssa.com/homepage-data/minutes.json`) |
 | `BOOKINGS_API` | Bookings source |
 
 > [!NOTE]
