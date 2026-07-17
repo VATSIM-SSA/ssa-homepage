@@ -109,12 +109,16 @@ export function Carousel({
         <>
           {/* Arrows are hidden rather than disabled at either end, and sit in the
               section's gutter so they never cover a card. */}
+          {/* Cards start 16px inside the track (the items' md:px-4), so -left-8
+              puts the 40px button at -32..8 and leaves an 8px gap to the card.
+              Below md the gutter is too narrow to clear the card, so the arrows
+              are hidden and the track is swiped instead. */}
           {page > 0 && (
             <button
               type="button"
               aria-label="Previous slide"
               onClick={() => scrollToPage(page - 1)}
-              className="absolute -left-1 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-zinc-800/90 text-white shadow-lg transition-all duration-200 hover:bg-zinc-700 md:-left-6"
+              className="absolute -left-8 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-zinc-800/90 text-white shadow-lg transition-all duration-200 hover:bg-zinc-700 md:flex"
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
@@ -124,7 +128,7 @@ export function Carousel({
               type="button"
               aria-label="Next slide"
               onClick={() => scrollToPage(page + 1)}
-              className="absolute -right-1 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-zinc-800/90 text-white shadow-lg transition-all duration-200 hover:bg-zinc-700 md:-right-6"
+              className="absolute -right-8 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-zinc-800/90 text-white shadow-lg transition-all duration-200 hover:bg-zinc-700 md:flex"
             >
               <ChevronRight className="h-5 w-5" />
             </button>

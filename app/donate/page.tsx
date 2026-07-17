@@ -35,13 +35,14 @@ export default function Donate() {
                   funding our servers, and other operational costs.
                 </li>
                 <li>
-                  VATSIM Sub-Sahara Africa is a non-profit organisation, and all
-                  donations go directly towards improving the final product for
-                  our members.
+                  VATSIM Sub-Sahara Africa is run by volunteers and is not a
+                  registered non-profit. Every donation goes towards improving
+                  the division for our members.
                 </li>
                 <li>
-                  Personnal information of those who have donated will not be
-                  disclosed, nor the sum of their donations.
+                  We will not disclose who has donated, or how much. Donations
+                  run through Open Collective, whose public ledger shows only
+                  what your own settings choose to reveal.
                 </li>
                 <li>
                   We will provide no special treatment to those who have

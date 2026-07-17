@@ -124,7 +124,9 @@ export default function PilotRVAS() {
             Regional Virtual Airlines (rVAs) operating within its jurisdiction.
             This program is further outlined in the rVA policy available{" "}
             <a
-              href="https://vatssa.com/hq/docs/pdf/ssa_policy_regionalvirtualairline_v1-0_20250201.pdf"
+              href="https://files.vatssa.com/policy/regional_virtual_airline_v1.1.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="underline text-primary hover:text-primary/80"
             >
               here

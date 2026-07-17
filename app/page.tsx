@@ -178,7 +178,7 @@ export default function Home() {
           VATSSA is the home of virtual aviation across Sub Saharan Africa, offering ATC training, realistic operations, and a welcoming community for pilots and controllers of every experience level.
         </p>
         <div className="mt-8 flex items-center gap-3 flex-row">
-          <Button variant="filled" href="https://eaip2.vatssa.com/">
+          <Button variant="filled" href="https://docs.vatssa.com/">
             Join VATSSA
           </Button>
           <Button variant="outline" href="https://cc.vatssa.com/">
@@ -255,9 +255,10 @@ export default function Home() {
                   }
                 >
                   <CardContent>
-                    {/* Title and excerpt reserve a fixed number of lines so the
-                        cards line up when a title runs onto a second line. */}
-                    <CardHeader className="overflow-hidden [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical] [min-height:2lh]">
+                    {/* Clamp long titles and excerpts to a couple of lines, but
+                        don't reserve the space: the image anchors the top of the
+                        card, so a short title should sit tight to it. */}
+                    <CardHeader className="overflow-hidden [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical]">
                       {post.title}
                     </CardHeader>
                     <CardTimestamp>
@@ -267,7 +268,7 @@ export default function Home() {
                         : ""}{" "}
                       - {formatNewsDate(post.publishedAt)}
                     </CardTimestamp>
-                    <p className="text-zinc-300 text-base overflow-hidden [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical] [min-height:2lh]">
+                    <p className="text-zinc-300 text-base overflow-hidden [display:-webkit-box] [-webkit-line-clamp:3] [-webkit-box-orient:vertical]">
                       {post.excerpt}
                     </p>
                     <a
