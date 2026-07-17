@@ -29,7 +29,7 @@ export default function Donate() {
               <h1 className="text-left text-2xl md:text-4xl text-white font-bold">
                 Our Promise
               </h1>
-              <ul className="text-sm list-disc space-y-2 md:space-y-4 pl-5 text-left text-white marker:text-white">
+              <ul className="text-sm list-disc space-y-4 pl-5 text-left text-white marker:text-white">
                 <li>
                   We are committed to using your donations responsibly towards
                   funding our servers, and other operational costs.
@@ -57,12 +57,13 @@ export default function Donate() {
               </h1>
               <ul className="text-sm list-disc space-y-4 pl-5 text-left text-white marker:text-white">
                 <li>
-                  By donating, you commit that your financial contribution is
-                  purely a donation and that said donation does not grant you
-                  any special treatment or higher say in how the division is
-                  run. You agree to never use the fact of your donation as an
-                  attempt to influence or intimidate staff members of the
-                  division.
+                  By donating, you confirm that your contribution is purely a
+                  donation, and that it grants you no special treatment or
+                  greater say in how the division is run.
+                </li>
+                <li>
+                  You agree never to use the fact of your donation as an attempt
+                  to influence or intimidate staff members of the division.
                 </li>
                 <li>
                   You will not use your donation to elevate your status or gain
