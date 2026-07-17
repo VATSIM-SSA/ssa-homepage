@@ -8,7 +8,10 @@ const ContentSecurityPolicy = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === "production" ? "" : " 'unsafe-eval'"}`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: https://*.vatssa.com https://*.basemaps.cartocdn.com",
+  // Event banners are uploaded through my.vatsim.net, which serves them from
+  // its own bucket. The host is pinned rather than wildcarded: anyone can
+  // create a DigitalOcean Space, so *.digitaloceanspaces.com would trust them all.
+  "img-src 'self' data: https://*.vatssa.com https://*.basemaps.cartocdn.com https://vatsim-my.nyc3.digitaloceanspaces.com",
   "font-src 'self' data:",
   "connect-src 'self' https://*.vatssa.com",
 ].join("; ");
