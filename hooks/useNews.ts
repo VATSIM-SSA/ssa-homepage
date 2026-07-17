@@ -56,6 +56,16 @@ function stripHtml(input: string): string {
 	return input.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
 }
 
+// Discourse wraps an uploaded image in a lightbox anchor whose text is the
+// file's name, dimensions and size ("banner.jpeg 1920×1080 104 KB"). Removing
+// the tags alone would leave that metadata in the excerpt, so drop the whole
+// block before the HTML is flattened.
+function stripImageBlocks(input: string): string {
+	return input
+		.replace(/<a[^>]*class="[^"]*lightbox[^"]*"[^>]*>[\s\S]*?<\/a>/gi, " ")
+		.replace(/<img[^>]*>/gi, " ");
+}
+
 function stripImageMarkup(input: string): string {
 	return input
 		.replace(/!\[[^\]]*\]\([^)]*\)/g, " ") // markdown images
@@ -64,14 +74,24 @@ function stripImageMarkup(input: string): string {
 		.trim();
 }
 
-function getExcerpt(post: RawNewsPost): string {
-	const source =
-		(post.excerpt && post.excerpt.trim().length > 0 && post.excerpt) ||
-		(post.cooked && post.cooked.trim().length > 0 && post.cooked) ||
-		"";
+function toPlainText(input: string): string {
+	return stripImageMarkup(stripHtml(stripImageBlocks(input)));
+}
 
-	const text = stripImageMarkup(stripHtml(source));
-	return text.length > 0 ? text : "No summary available for this update yet.";
+function getExcerpt(post: RawNewsPost): string {
+	// An excerpt that held nothing but an image flattens to an empty string, so
+	// fall back to the post body before giving up.
+	const fromExcerpt = post.excerpt ? toPlainText(post.excerpt) : "";
+
+	if (fromExcerpt.length > 0) {
+		return fromExcerpt;
+	}
+
+	const fromCooked = post.cooked ? toPlainText(post.cooked) : "";
+
+	return fromCooked.length > 0
+		? fromCooked
+		: "No summary available for this update yet.";
 }
 
 function normalisePost(post: RawNewsPost): NewsPost {

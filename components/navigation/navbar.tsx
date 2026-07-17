@@ -149,8 +149,55 @@ export default function Navbar() {
               </DropdownItem>
             </Dropdown>
 
+            <Dropdown text="Our Services" chevron={true} variant="ghost">
+              <DropdownItem
+                className="flex items-center gap-1"
+                onClick={() => window.open("https://forum.vatssa.com/", "_blank")}
+              >
+                Forum <ExternalLink className="h-4 w-auto" />
+              </DropdownItem>
+              <DropdownItem
+                className="flex items-center gap-1"
+                onClick={() => window.open("https://training.vatssa.com/", "_blank")}
+              >
+                Training Platform <ExternalLink className="h-4 w-auto" />
+              </DropdownItem>
+              <DropdownItem
+                className="flex items-center gap-1"
+                onClick={() => window.open("https://cc.vatssa.com/", "_blank")}
+              >
+                Control Centre <ExternalLink className="h-4 w-auto" />
+              </DropdownItem>
+              <DropdownItem
+                className="flex items-center gap-1"
+                onClick={() => window.open("https://bookings.vatssa.com/", "_blank")}
+              >
+                Bookings <ExternalLink className="h-4 w-auto" />
+              </DropdownItem>
+              <DropdownItem
+                className="flex items-center gap-1"
+                onClick={() => window.open("https://docs.vatssa.com/", "_blank")}
+              >
+                Docs <ExternalLink className="h-4 w-auto" />
+              </DropdownItem>
+              <DropdownSeperator />
+              <DropdownItem
+                className="flex items-center gap-1"
+                onClick={() => window.open("https://github.com/VATSIM-SSA", "_blank")}
+              >
+                GitHub <ExternalLink className="h-4 w-auto" />
+              </DropdownItem>
+              <DropdownItem
+                className="flex items-center gap-1"
+                onClick={() => window.open("https://community.vatsim.net/", "_blank")}
+              >
+                Discord <ExternalLink className="h-4 w-auto" />
+              </DropdownItem>
+            </Dropdown>
+
             <Button
-              variant="ghost"
+              variant="feedback"
+              className="ml-2"
               onClick={() =>
                 window.open("https://eaip2.vatssa.com/", "_blank")
               }
@@ -346,6 +393,31 @@ export default function Navbar() {
                 >
                   Training Registration <ExternalLink className="h-4 w-auto" />
                 </Button>
+
+                <p className="px-4 text-zinc-400 font-bold text-sm mt-6 mb-1">
+                  Our Services
+                </p>
+                {[
+                  { label: "Forum", href: "https://forum.vatssa.com/" },
+                  { label: "Training Platform", href: "https://training.vatssa.com/" },
+                  { label: "Control Centre", href: "https://cc.vatssa.com/" },
+                  { label: "Bookings", href: "https://bookings.vatssa.com/" },
+                  { label: "Docs", href: "https://docs.vatssa.com/" },
+                  { label: "GitHub", href: "https://github.com/VATSIM-SSA" },
+                  { label: "Discord", href: "https://community.vatsim.net/" },
+                ].map((service) => (
+                  <Button
+                    key={service.href}
+                    variant="menu"
+                    className="flex items-center gap-2"
+                    onClick={() => {
+                      setShowMobileMenu(false);
+                      window.open(service.href, "_blank");
+                    }}
+                  >
+                    {service.label} <ExternalLink className="h-4 w-auto" />
+                  </Button>
+                ))}
 
                 <p className="px-4 text-zinc-400 font-bold text-sm mt-6 mb-1">
                   Feedback

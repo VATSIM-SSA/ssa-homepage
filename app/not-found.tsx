@@ -24,8 +24,8 @@ export default function NotFound() {
           <h1 className="text-9xl font-bold text-primary">404</h1>
           <p className="text-xl font-bold text-primary">Page Not Found</p>
           <p className="text-zinc-400 mx-12 text-center">
-            Looks like we can't find the page you're looking for. it may have
-            been moved, deleted, or the URL may be incorrect.
+            Looks like we can&apos;t find the page you&apos;re looking for. It
+            may have been moved, deleted, or the URL may be incorrect.
           </p>
           <Button variant="filled" onClick={() => window.history.back()}>
             Back to Safety <MoveRight size={24} />

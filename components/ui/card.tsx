@@ -1,15 +1,15 @@
 "use client";
 
-import {
-  createContext,
-  useContext,
-  type HTMLAttributes,
-  type ReactNode,
-} from "react";
+import { type HTMLAttributes, type ReactNode } from "react";
 
 type CardSnap = "top" | "left";
 
-const CardSnapContext = createContext<CardSnap>("left");
+// How a card's content sits along the card's height. Cards stretched by a grid
+// or carousel are taller than their content, so this decides whether the text
+// hangs from the top or floats in the middle. It is a prop rather than a
+// className because a caller-supplied `justify-*` cannot reliably beat the
+// one baked in here.
+type CardAlign = "start" | "center";
 
 type CardProps = HTMLAttributes<HTMLDivElement> & {
   children: ReactNode;
@@ -25,6 +25,7 @@ type CardAvatarProps = HTMLAttributes<HTMLDivElement> & {
 
 type CardSectionProps = HTMLAttributes<HTMLDivElement> & {
   children: ReactNode;
+  align?: CardAlign;
 };
 
 type CardHeaderProps = HTMLAttributes<HTMLHeadingElement> & {
@@ -44,21 +45,19 @@ export function Card({
   ...props
 }: CardProps) {
   return (
-    <CardSnapContext.Provider value={snap}>
-      <div
-        className={`flex w-full flex-col items-center justify-center overflow-hidden rounded-4xl bg-zinc-800 ${snap === "left" ? "xl:flex-row" : ""} ${className}`.trim()}
-        {...props}
-      >
-        {media && (
-          <div
-            className={`w-full ${snap === "left" ? "xl:w-3/5" : ""} ${mediaClassName}`.trim()}
-          >
-            {media}
-          </div>
-        )}
-        {children}
-      </div>
-    </CardSnapContext.Provider>
+    <div
+      className={`flex w-full flex-col items-center justify-center overflow-hidden rounded-4xl bg-zinc-800 ${snap === "left" ? "xl:flex-row" : ""} ${className}`.trim()}
+      {...props}
+    >
+      {media && (
+        <div
+          className={`w-full ${snap === "left" ? "xl:w-1/3" : ""} ${mediaClassName}`.trim()}
+        >
+          {media}
+        </div>
+      )}
+      {children}
+    </div>
   );
 }
 
@@ -96,14 +95,15 @@ export function CardHeader({
 
 export function CardContent({
   children,
+  align = "start",
   className = "",
   ...props
 }: CardSectionProps) {
-  const snap = useContext(CardSnapContext);
-
   return (
     <div
-      className={`flex w-full flex-col items-start justify-center gap-2 p-6 text-left ${className}`.trim()}
+      className={`flex w-full flex-col items-start gap-2 p-6 text-left ${
+        align === "center" ? "justify-center" : "justify-start"
+      } ${className}`.trim()}
       {...props}
     >
       {children}

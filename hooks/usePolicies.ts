@@ -9,10 +9,6 @@ export interface Policy {
   url: string;
 }
 
-type PoliciesResponse =
-  | { policies: Policy[] }
-  | { data: { policies: Policy[] } };
-
 function isPolicy(value: unknown): value is Policy {
   return (
     typeof value === "object" &&

@@ -6,7 +6,7 @@ import type {
   ReactNode,
 } from "react";
 
-type Variant = "filled" | "outline" | "ghost" | "menu" | "danger";
+type Variant = "filled" | "outline" | "ghost" | "menu" | "danger" | "feedback";
 
 type ButtonBaseProps = {
   variant?: Variant;
@@ -35,6 +35,8 @@ const variantClasses: Record<Variant, string> = {
   outline:
     "items-center justify-center cursor-pointer rounded-full border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white transition-colors duration-200 hover:bg-white/15",
   ghost: "items-center justify-center h-full text-zinc-300 hover:text-white",
+  feedback:
+    "items-center justify-center rounded-full border border-primary px-4 py-2 text-sm font-semibold text-primary hover:bg-primary hover:text-zinc-950",
   menu: "text-sm px-4 py-2 hover:bg-zinc-700 rounded-lg w-full text-left transition-all duration-200 cursor-pointer text-white",
   danger:
     "items-center justify-center rounded-full bg-red-500 px-6 py-3 font-semibold text-zinc-950 hover:bg-red-500/80",

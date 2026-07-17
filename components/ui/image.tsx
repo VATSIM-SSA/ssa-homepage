@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type ImgHTMLAttributes } from "react";
+import { useState, type ImgHTMLAttributes } from "react";
 
 type ImageProps = ImgHTMLAttributes<HTMLImageElement> & {
   fallbackClassName?: string;
@@ -18,10 +18,15 @@ export function Image({
   ...props
 }: ImageProps) {
   const [hasError, setHasError] = useState(false);
+  const [renderedSrc, setRenderedSrc] = useState(src);
 
-  useEffect(() => {
+  // Reset the error when a new src arrives. Adjusting state during render is
+  // React's recommended alternative to doing this in an effect, which would
+  // render the stale fallback once before correcting itself.
+  if (src !== renderedSrc) {
+    setRenderedSrc(src);
     setHasError(false);
-  }, [src]);
+  }
 
   if (hasError || !src) {
     return (
