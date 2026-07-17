@@ -7,7 +7,7 @@ import { Montserrat } from "next/font/google";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "VATSSA | VATSIM Sub-Sahara Africa",
+  title: "VATSSA Homepage",
   description: "Welcome to the VATSIM Sub-Sahara Africa Division.",
 };
 
