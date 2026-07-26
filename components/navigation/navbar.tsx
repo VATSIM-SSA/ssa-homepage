@@ -63,13 +63,8 @@ export default function Navbar() {
                 Meeting Minutes
               </DropdownItem>
               <DropdownSeperator />
-              <DropdownItem
-                className="flex items-center gap-1"
-                onClick={() =>
-                  window.open("https://docs.vatssa.com/", "_blank")
-                }
-              >
-                Transfer/Visit <ExternalLink className="h-4 w-auto" />
+              <DropdownItem onClick={() => router.push("/join")}>
+                Transfer/Visit
               </DropdownItem>
             </Dropdown>
 
@@ -112,6 +107,11 @@ export default function Navbar() {
                 }
               >
                 Control Centre <ExternalLink className="h-4 w-auto" />
+              </DropdownItem>
+              <DropdownItem
+                onClick={() => router.push("/controllers/sector-files")}
+              >
+                Sector Files &amp; vATIS
               </DropdownItem>
               <DropdownItem
                 className="flex items-center gap-1"
@@ -297,13 +297,12 @@ export default function Navbar() {
                 <div className="mx-4 my-2 h-px w-[calc(100%-2rem)] bg-zinc-700" />
                 <Button
                   variant="menu"
-                  className="flex items-center gap-2"
                   onClick={() => {
                     setShowMobileMenu(false);
-                    window.open("https://docs.vatssa.com/", "_blank");
+                    router.push("/join");
                   }}
                 >
-                  Transfer/Visit <ExternalLink className="h-4 w-auto" />
+                  Transfer/Visit
                 </Button>
 
                 <p className="px-4 text-zinc-400 font-bold text-sm mt-6 mb-1">
@@ -362,6 +361,15 @@ export default function Navbar() {
                   }}
                 >
                   Control Centre <ExternalLink className="h-4 w-auto" />
+                </Button>
+                <Button
+                  variant="menu"
+                  onClick={() => {
+                    setShowMobileMenu(false);
+                    router.push("/controllers/sector-files");
+                  }}
+                >
+                  Sector Files &amp; vATIS
                 </Button>
                 <Button
                   variant="menu"

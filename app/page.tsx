@@ -178,7 +178,7 @@ export default function Home() {
           VATSSA is the home of virtual aviation across Sub Saharan Africa, offering ATC training, realistic operations, and a welcoming community for pilots and controllers of every experience level.
         </p>
         <div className="mt-8 flex items-center gap-3 flex-row">
-          <Button variant="filled" href="https://docs.vatssa.com/">
+          <Button variant="filled" href="/join">
             Join VATSSA
           </Button>
           <Button variant="outline" href="https://cc.vatssa.com/">
