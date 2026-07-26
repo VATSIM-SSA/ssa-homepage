@@ -736,28 +736,19 @@ export default function Join() {
               <p className="text-sm leading-6 text-zinc-300">
                 A transfer is not finished the moment it is approved. You go
                 through an induction with us, and then apply for familiarisation
-                training at your rating. Leave the induction undone for 90 days
-                and the transfer can be voided, so book it early.
+                training at your rating.
               </p>
-            </div>
-
-            <div className="flex flex-col gap-3 rounded-3xl bg-zinc-800 p-8">
-              <div className="flex items-center gap-3">
-                <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/15 text-primary">
-                  <Clock className="h-5 w-5" />
-                </span>
-                <h3 className="text-xl font-semibold text-white">
-                  Why it is email for now
-                </h3>
+              <div className="mt-1 flex items-start gap-3 rounded-2xl bg-zinc-950/60 p-4">
+                <Clock className="mt-0.5 h-4 w-4 shrink-0 text-amber-400" />
+                <p className="text-sm leading-6 text-zinc-300">
+                  <strong className="text-white">
+                    Finish within 90 days.
+                  </strong>{" "}
+                  If your familiarisation training is not completed within 90
+                  days of the transfer, you are automatically transferred back to
+                  your previous division. Book it early.
+                </p>
               </div>
-              <p className="text-sm leading-6 text-zinc-300">
-                Membership requests are handled by hand today: read, checked and
-                actioned by a staff member. It works, but it gives you no way to
-                see where your request is. A self-service Membership Portal is in
-                development, where you will sign in with VATSIM, see whether you
-                are eligible before you apply, and track your request through
-                each stage. Until it is live, email is the route.
-              </p>
             </div>
           </div>
         </div>

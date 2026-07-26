@@ -8,7 +8,6 @@ import {
   FileJson,
   Radio,
   Search,
-  Settings,
   TriangleAlert,
 } from "lucide-react";
 import { Header } from "@/components/ui/header";
@@ -25,40 +24,17 @@ const FEEDBACK_URL = "https://cc.vatssa.com/feedback";
 
 // The four states airac.py can emit, with the same colours the Discord board
 // uses. Keyed off `status` rather than the emoji so the two stay in lock-step.
-const statusStyles: Record<
-  SectorStatus,
-  { dot: string; text: string; chip: string; label: string }
-> = {
-  current: {
-    dot: "bg-secondary",
-    text: "text-secondary",
-    chip: "bg-secondary/15 text-secondary",
-    label: "Current",
-  },
-  one_behind: {
-    dot: "bg-primary",
-    text: "text-primary",
-    chip: "bg-primary/15 text-primary",
-    label: "One behind",
-  },
-  two_behind: {
-    dot: "bg-amber-400",
-    text: "text-amber-400",
-    chip: "bg-amber-400/15 text-amber-400",
-    label: "Two behind",
-  },
+// A dot, and nothing louder. Being a cycle or two behind is normal and the file
+// is still perfectly usable, so no warning colours and no red: green marks the
+// newest build and everything else is a quiet neutral.
+const statusStyles: Record<SectorStatus, { dot: string; label: string }> = {
+  current: { dot: "bg-secondary", label: "Latest build" },
+  one_behind: { dot: "bg-primary", label: "One cycle back" },
+  two_behind: { dot: "bg-primary/60", label: "Two cycles back" },
   // Neutral rather than zinc: the zinc scale is remapped to VATSSA teal in
-  // globals.css, so a zinc dot would read as another shade of "behind" instead
-  // of as grey.
-  older: {
-    dot: "bg-neutral-400",
-    text: "text-neutral-300",
-    chip: "bg-neutral-700 text-neutral-200",
-    label: "Older",
-  },
+  // globals.css, so a zinc dot would read as another shade of teal.
+  older: { dot: "bg-neutral-400", label: "Older build" },
 };
-
-type StatusFilter = "all" | "current" | "behind";
 
 function StatTile({
   value,
@@ -96,9 +72,7 @@ function SectorRow({ sector }: { sector: Sector }) {
             <span className="font-mono text-base font-semibold text-white">
               {sector.label}
             </span>
-            <span
-              className={`rounded-full px-2.5 py-0.5 font-mono text-xs font-semibold ${style.chip}`}
-            >
+            <span className="rounded-full bg-zinc-950/70 px-2.5 py-0.5 font-mono text-xs font-semibold text-zinc-300">
               AIRAC {sector.cycle}
             </span>
             <span className="sr-only">{style.label}</span>
@@ -112,50 +86,57 @@ function SectorRow({ sector }: { sector: Sector }) {
         </div>
       </div>
 
-      <div className="flex shrink-0 flex-wrap items-center gap-2">
-        {/* A standard aero-nav link is a file. Anything else is an override the
-            tracker points elsewhere (e.g. while a sector is unavailable), so it
-            must not pretend to be a download — same rule as the Discord board. */}
-        {sector.download_is_override ? (
-          <Button
-            variant="outline"
-            href={sector.download_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-4 py-2 text-xs"
-          >
-            <TriangleAlert className="h-4 w-4" /> How to get it
-          </Button>
-        ) : (
-          <Button
-            variant="filled"
-            href={sector.download_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-4 py-2 text-xs"
-          >
-            <Download className="h-4 w-4" /> Sector file
-          </Button>
-        )}
+      {/* Fixed-width slots, not a wrapping flex row: a sector with no vATIS
+          profile would otherwise let its download button slide sideways, so the
+          buttons never lined up down the column. */}
+      <div className="flex shrink-0 items-center gap-2">
+        <div className="w-full sm:w-38">
+          {/* A standard aero-nav link is a file. Anything else is an override the
+              tracker points elsewhere (e.g. while a sector is unavailable), so it
+              must not pretend to be a download — same rule as the Discord board. */}
+          {sector.download_is_override ? (
+            <Button
+              variant="outline"
+              href={sector.download_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full px-4 py-2 text-xs"
+            >
+              <TriangleAlert className="h-4 w-4" /> How to get it
+            </Button>
+          ) : (
+            <Button
+              variant="filled"
+              href={sector.download_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full px-4 py-2 text-xs"
+            >
+              <Download className="h-4 w-4" /> Sector file
+            </Button>
+          )}
+        </div>
 
-        {/* Only ever rendered when the tracker supplies a profile. The URL is the
-            GitHub release asset, which downloads; a raw file would open in the
-            browser instead. Never constructed here. */}
-        {sector.vatis_url ? (
-          <Button
-            variant="outline"
-            href={sector.vatis_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-4 py-2 text-xs"
-          >
-            <FileJson className="h-4 w-4" /> vATIS
-          </Button>
-        ) : (
-          <span className="rounded-full border border-zinc-700 px-4 py-2 text-xs text-zinc-500">
-            No vATIS
-          </span>
-        )}
+        <div className="w-full sm:w-30">
+          {/* Only ever rendered when the tracker supplies a profile. The URL is the
+              GitHub release asset, which downloads; a raw file would open in the
+              browser instead. Never constructed here. */}
+          {sector.vatis_url ? (
+            <Button
+              variant="outline"
+              href={sector.vatis_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full px-4 py-2 text-xs"
+            >
+              <FileJson className="h-4 w-4" /> vATIS
+            </Button>
+          ) : (
+            <span className="flex w-full items-center justify-center rounded-full border border-dashed border-zinc-700 px-4 py-2 text-xs text-zinc-500">
+              No vATIS
+            </span>
+          )}
+        </div>
 
         <a
           href={sector.github_url}
@@ -166,16 +147,6 @@ function SectorRow({ sector }: { sector: Sector }) {
         >
           <Code className="h-4 w-4" />
           <span className="sr-only">{sector.repo} on GitHub</span>
-        </a>
-        <a
-          href={sector.gng_url}
-          target="_blank"
-          rel="noopener noreferrer"
-          title={`${sector.code} on GNG`}
-          className="rounded-full p-2 text-zinc-400 transition-colors duration-200 hover:text-white"
-        >
-          <Settings className="h-4 w-4" />
-          <span className="sr-only">{sector.code} on GNG</span>
         </a>
       </div>
     </div>
@@ -207,13 +178,11 @@ function SetupStep({
 export default function SectorFiles() {
   const { board, regions, sectors, isLoading, error } = useSectors();
   const [searchTerm, setSearchTerm] = useState("");
-  const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
 
   const counts = useMemo(() => {
     return {
       total: sectors.length,
       current: sectors.filter((sector) => sector.status === "current").length,
-      behind: sectors.filter((sector) => sector.status !== "current").length,
       vatis: sectors.filter((sector) => sector.vatis_url).length,
     };
   }, [sectors]);
@@ -231,12 +200,7 @@ export default function SectorFiles() {
           sector.name.toLowerCase().includes(normalisedSearch) ||
           (sector.includes ?? "").toLowerCase().includes(normalisedSearch);
 
-        const matchesStatus =
-          statusFilter === "all" ||
-          (statusFilter === "current" && sector.status === "current") ||
-          (statusFilter === "behind" && sector.status !== "current");
-
-        return matchesSearch && matchesStatus;
+        return matchesSearch;
       }),
     }))
     .filter((region) => region.sectors.length > 0);
@@ -294,18 +258,12 @@ export default function SectorFiles() {
           ) : null}
         </div>
 
-        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           <StatTile value={isLoading ? "—" : counts.total} label="Sector files" />
           <StatTile
             value={isLoading ? "—" : counts.current}
-            label="On current cycle"
+            label="On the latest cycle"
             accent="text-secondary"
-          />
-          <StatTile
-            value={isLoading ? "—" : counts.behind}
-            label="Behind"
-            // Nothing behind is good news, so it should not glow amber.
-            accent={counts.behind > 0 ? "text-amber-400" : "text-zinc-300"}
           />
           <StatTile
             value={isLoading ? "—" : counts.vatis}
@@ -320,57 +278,25 @@ export default function SectorFiles() {
         <Header text="Downloads" />
 
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-zinc-400">
-            {(
-              ["current", "one_behind", "two_behind", "older"] as SectorStatus[]
-            ).map((status) => (
-              <span key={status} className="flex items-center gap-2">
-                <span
-                  className={`h-2 w-2 rounded-full ${statusStyles[status].dot}`}
-                  aria-hidden="true"
-                />
-                {board?.legend?.[status] ?? statusStyles[status].label}
-              </span>
-            ))}
-          </div>
+          <p className="max-w-2xl text-sm leading-6 text-zinc-400">
+            Grab the file for the FIR you are controlling. The dot beside each
+            sector shows how recently its package was rebuilt — a file that is a
+            cycle or two back is still good to control on, and rebuilds follow the
+            AIRAC calendar.
+          </p>
 
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-            <div className="inline-flex rounded-xl bg-zinc-900 p-1">
-              {(
-                [
-                  { value: "all", label: "All" },
-                  { value: "current", label: "Current" },
-                  { value: "behind", label: "Behind" },
-                ] as { value: StatusFilter; label: string }[]
-              ).map((option) => (
-                <button
-                  key={option.value}
-                  type="button"
-                  onClick={() => setStatusFilter(option.value)}
-                  className={`cursor-pointer rounded-lg px-4 py-2 text-sm font-semibold transition-colors duration-200 ${
-                    statusFilter === option.value
-                      ? "bg-zinc-700 text-white"
-                      : "text-zinc-400 hover:text-zinc-200"
-                  }`}
-                >
-                  {option.label}
-                </button>
-              ))}
-            </div>
-
-            <div className="relative w-full sm:w-64">
-              <Search
-                className="pointer-events-none absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 text-zinc-500"
-                aria-hidden="true"
-              />
-              <input
-                type="text"
-                value={searchTerm}
-                onChange={(event) => setSearchTerm(event.target.value)}
-                placeholder="Search sector or FIR"
-                className="h-11 w-full rounded-xl bg-zinc-900 pr-4 pl-11 text-sm text-white outline-none transition-colors placeholder:text-zinc-500 focus:bg-zinc-800"
-              />
-            </div>
+          <div className="relative w-full lg:w-64">
+            <Search
+              className="pointer-events-none absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 text-zinc-500"
+              aria-hidden="true"
+            />
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(event) => setSearchTerm(event.target.value)}
+              placeholder="Search sector or FIR"
+              className="h-11 w-full rounded-xl bg-zinc-900 pr-4 pl-11 text-sm text-white outline-none transition-colors placeholder:text-zinc-500 focus:bg-zinc-800"
+            />
           </div>
         </div>
 
