@@ -41,7 +41,6 @@ I would like to request a [transfer to / visiting endorsement with] VATSSA.
 
 CID: [1234567]
 Full name: [Your name]
-Current rating: [S1 / S2 / S3 / C1 / C3]
 
 I confirm that:
 - I do not hold a staff position elsewhere that conflicts with membership here.
