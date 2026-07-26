@@ -3,7 +3,6 @@
 import { useState } from "react";
 import {
   ArrowRight,
-  AtSign,
   Ban,
   Check,
   ChevronDown,
@@ -109,7 +108,7 @@ const faqs = [
   {
     question: "I hold a staff position in another division.",
     answer:
-      "Declare it in your email. Most positions are fine. A position that conflicts with holding VATSSA as your home division has to be resolved before a transfer can complete, so tell us up front rather than after the fact.",
+      "Declare it in your email. A position that conflicts with holding VATSSA as your home division has to be resolved before a transfer can complete, so tell us up front rather than after the fact.",
   },
   {
     question: "I am already a VATSSA home controller.",
@@ -384,7 +383,7 @@ export default function Join() {
                 href={`mailto:${MEMBERSHIP_EMAIL}`}
                 className="w-full"
               >
-                <AtSign className="h-4 w-4" /> {MEMBERSHIP_EMAIL}
+                <Mail className="h-4 w-4" /> {MEMBERSHIP_EMAIL}
               </Button>
             }
           />
