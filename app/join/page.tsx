@@ -45,10 +45,6 @@ Current rating: [S1 / S2 / S3 / C1 / C3]
 Current division: [e.g. VATSIM UK]
 Current region: [EMEA]
 
-Why I want to join VATSSA:
-[A few sentences. This is read by the Membership department, so tell us what
-you want to control and why VATSSA.]
-
 I confirm that:
 - I do not hold a staff position elsewhere that conflicts with membership here.
 - I have no open training request in another division.
@@ -376,7 +372,7 @@ export default function Join() {
             icon={<Mail className="h-5 w-5" />}
             question="I am already in the EMEA region"
             verdict="Email Membership"
-            detail="You are in the right region, so this is a division transfer and we handle it. Send one email to the Membership department with your details and your reason for joining. Visiting endorsements go to the same address. Everything runs through email — there is no form and no help-desk ticket to open."
+            detail="You are in the right region, so this is a division transfer and we handle it. Send one email to the Membership department with your details. Visiting endorsements go to the same address. Everything runs through email — there is no form and no help-desk ticket to open."
             action={
               <Button
                 variant="filled"
@@ -662,10 +658,6 @@ export default function Join() {
                   Transfer or visiting — they are different requests.
                 </li>
                 <li>
-                  <strong className="text-white">Give us a reason.</strong> A
-                  real one, in your own words. Membership staff read it.
-                </li>
-                <li>
                   <strong className="text-white">One request at a time.</strong>{" "}
                   Do not send a transfer and a visiting request together.
                 </li>
@@ -703,9 +695,10 @@ export default function Join() {
               It lands with the Membership department. Nothing is automated at
               this stage, so you will not get an instant reply.
             </TimelineStep>
-            <TimelineStep step={2} title="A staff member picks it up">
-              One person takes ownership of your request and works it through to
-              a decision, so you are dealing with the same staffer throughout.
+            <TimelineStep step={2} title="Membership staff picks it up">
+              One member of the Membership department takes ownership of your
+              request and works it through to a decision, so you are dealing with
+              the same person throughout.
             </TimelineStep>
             <TimelineStep step={3} title="We check you against the policy">
               Your rating, hours, dates and record are checked against the
