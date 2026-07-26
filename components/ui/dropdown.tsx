@@ -217,7 +217,10 @@ export function DropdownSeperator({ className = "" }: { className?: string }) {
     return null;
   }
 
-  const classes = `mx-1 my-1 h-px bg-zinc-800 ${className}`;
+  // bg-zinc-800 is the item hover colour and sits a single step from the panel's
+  // bg-zinc-900, so on the remapped teal scale the line was invisible. zinc-600
+  // is the first shade that actually reads as a divider.
+  const classes = `mx-1 my-1 h-px bg-zinc-600 ${className}`;
 
   return (
     <div role="separator" aria-orientation="horizontal" className={classes} />
