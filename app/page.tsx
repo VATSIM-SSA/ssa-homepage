@@ -32,14 +32,19 @@ const NEWS_PLACEHOLDERS: ReadonlyArray<{ tag: string; src: string }> = [
   { tag: "Divisional", src: "/images/announcement-divisional.webp" },
 ];
 
-function placeholderForTags(tags: string[]): string | null {
+// A post with no image and no matching tag still needs media, or its card
+// renders as a bare block of text beside cards that have one. "Divisional" is
+// the neutral one of the three.
+const NEWS_PLACEHOLDER_DEFAULT = "/images/announcement-divisional.webp";
+
+function placeholderForTags(tags: string[]): string {
   for (const { tag, src } of NEWS_PLACEHOLDERS) {
     if (tags.includes(tag)) {
       return src;
     }
   }
 
-  return null;
+  return NEWS_PLACEHOLDER_DEFAULT;
 }
 
 function parseEventDate(value: string) {
