@@ -12,7 +12,9 @@ type RawNewsPost = {
 	cooked?: string | null;
 	post_url?: string | null;
 	image?: string | null;
-	tags?: string[] | null;
+	// Discourse serves tags as objects ({ id, name, slug }), not bare strings.
+	// Older responses and hand-written fixtures use strings, so both are read.
+	tags?: Array<string | { name?: string | null }> | null;
 };
 
 type NewsEnvelope = { latest_posts: RawNewsPost[] };
@@ -136,6 +138,20 @@ function getExcerpt(post: RawNewsPost): string {
 		: "No summary available for this update yet.";
 }
 
+// Flatten Discourse's tag objects to their names. Without this the raw objects
+// were passed straight through while typed as `string[]`, so every
+// `tags.includes("Divisional")` test silently failed and no news card ever got
+// its placeholder image.
+function tagNames(tags: RawNewsPost["tags"]): string[] {
+	if (!Array.isArray(tags)) {
+		return [];
+	}
+
+	return tags
+		.map((tag) => (typeof tag === "string" ? tag : (tag?.name ?? "")))
+		.filter((name) => name.length > 0);
+}
+
 function normalisePost(post: RawNewsPost): NewsPost {
 	return {
 		id: post.id,
@@ -146,7 +162,7 @@ function normalisePost(post: RawNewsPost): NewsPost {
 		excerpt: getExcerpt(post),
 		url: post.post_url || null,
 		image: post.image || null,
-		tags: Array.isArray(post.tags) ? post.tags : [],
+		tags: tagNames(post.tags),
 	};
 }
 
