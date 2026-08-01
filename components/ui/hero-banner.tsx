@@ -1,19 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { useScreenshotWinner } from "@/hooks/useScreenshotWinner";
-
-// Shown until the screenshot-competition winner loads, and again if that JSON
-// or the image behind it is unreachable. The credit travels with the file: a
-// hero must never be captioned with someone else's name.
-const FALLBACK = {
-  src: "/images/south-african-a340.webp",
-  alt: "South African Airways A340",
-  credit: "Nafan - 1708206",
-};
+import { useHero } from "@/components/ui/hero-context";
+import { FALLBACK_HERO } from "@/lib/hero";
 
 type HeroBannerProps = {
-  // Every page banded the hero differently — half-height on the interior pages,
+  // Every page bands the hero differently — half-height on the interior pages,
   // 60vh on /join, full height on the landing page — so the height stays a prop
   // rather than being flattened to one value in here.
   heightClass?: string;
@@ -26,27 +18,20 @@ type HeroBannerProps = {
 /**
  * The hero image every page shares, with its credit.
  *
- * The photo is the current screenshot-competition winner from the MinIO
- * `homepage-data` bucket, so crowning a new winner changes every page at once
+ * The photo is the current screenshot-competition winner, resolved server-side
+ * in the root layout, so it is correct in the first HTML the browser sees —
+ * no swap after hydration. Crowning a new winner changes every page at once
  * with no redeploy.
  */
 export function HeroBanner({
   heightClass = "h-[50vh]",
   overlayHeightClass,
 }: HeroBannerProps) {
-  const { winner } = useScreenshotWinner();
+  const resolved = useHero();
   // The JSON can name a file that is missing from the bucket, which would leave
   // a broken hero. Fall back to the shipped image, credit included.
   const [isBroken, setIsBroken] = useState(false);
-
-  const hero =
-    winner && !isBroken
-      ? {
-          src: winner.link,
-          alt: `VATSSA screenshot competition winner by ${winner.name}`,
-          credit: winner.name,
-        }
-      : FALLBACK;
+  const hero = isBroken ? FALLBACK_HERO : resolved;
 
   const overlayHeight = overlayHeightClass ?? heightClass;
 
