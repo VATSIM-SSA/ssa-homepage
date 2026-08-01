@@ -1,13 +1,13 @@
 {
     "data": [
         {
-            "name": "John Doe",
-            "link": "/screenshot-comp/may26.png",
+            "name": "John Doe - 1234567",
+            "link": "https://files.vatssa.com/homepage-data/screenshot-comp/may26.png",
             "month": "may26"
         },
         {
-            "name": "Sherlock Holmes",
-            "link": "/screenshot-comp/april26.png",
+            "name": "Sherlock Holmes - 7654321",
+            "link": "https://files.vatssa.com/homepage-data/screenshot-comp/apr26.png",
             "month": "apr26"
         }
     ]
