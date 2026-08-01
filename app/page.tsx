@@ -9,6 +9,7 @@ import { useEvents, type EventBooking } from "@/hooks/useEvents";
 import { useBookings } from "@/hooks/useBookings";
 import { useNews } from "@/hooks/useNews";
 import { useStaff } from "@/hooks/useStaff";
+import { HeroBanner } from "@/components/ui/hero-banner";
 import { LiveMap } from "@/components/map/live-map";
 import { useMemo } from "react";
 
@@ -155,17 +156,7 @@ export default function Home() {
 
   return (
     <div className="px-4 relative flex flex-col min-h-dvh w-full items-center justify-center overflow-hidden bg-zinc-950">
-      <img
-        src="/images/south-african-a340.webp"
-        alt="South African Airways A340"
-        className="absolute top-0 left-0 h-dvh w-full object-cover"
-      />
-
-      <div className="absolute h-screen inset-0 bg-gradient-to-b from-zinc-950/30 via-zinc-950/45 to-zinc-950">
-        <p className="absolute bottom-3 right-3 text-zinc-700 text-sm">
-          Image Credit: Nafan - 1708206
-        </p>
-      </div>
+      <HeroBanner heightClass="h-dvh" overlayHeightClass="h-screen" />
 
       <section className="h-[100vh] relative z-10 flex w-full max-w-7xl flex-col items-center justify-center px-6 py-8 text-center">
         <p className="mb-4 text-sm font-semibold uppercase tracking-[0.35em] text-secondary">
