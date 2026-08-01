@@ -11,7 +11,7 @@ import {
   TriangleAlert,
 } from "lucide-react";
 import { Header } from "@/components/ui/header";
-import { Image } from "@/components/ui/image";
+import { HeroBanner } from "@/components/ui/hero-banner";
 import { Button } from "@/components/ui/button";
 import { useSectors, type Sector, type SectorStatus } from "@/hooks/useSectors";
 
@@ -209,13 +209,7 @@ export default function SectorFiles() {
 
   return (
     <div className="relative flex min-h-dvh w-full flex-col items-center overflow-hidden bg-zinc-950 px-4">
-      <Image
-        src="/images/south-african-a340.webp"
-        alt="Hero Banner"
-        className="absolute top-0 left-0 h-[50vh] w-full object-cover"
-      />
-
-      <div className="absolute inset-0 h-[50vh] bg-gradient-to-b from-zinc-950/30 via-zinc-950/45 to-zinc-950" />
+      <HeroBanner heightClass="h-[50vh]" />
 
       <section className="relative z-10 flex h-[50vh] w-full max-w-7xl flex-col items-center justify-center px-6 pt-[104px] text-center">
         <p className="mb-4 text-sm font-semibold uppercase tracking-[0.35em] text-secondary">

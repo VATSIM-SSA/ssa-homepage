@@ -1,8 +1,8 @@
 "use client";
 
 import { Profile } from "@/components/ui/profile";
+import { HeroBanner } from "@/components/ui/hero-banner";
 import { Header } from "@/components/ui/header";
-import { Image } from "@/components/ui/image";
 import { useStaff } from "@/hooks/useStaff";
 
 export default function Staff() {
@@ -11,13 +11,7 @@ export default function Staff() {
 
   return (
     <div className="px-4 relative flex flex-col min-h-dvh w-full items-center justify-center overflow-hidden bg-zinc-950">
-      <Image
-        src="/images/south-african-a340.webp"
-        alt="Hero Banner"
-        className="absolute top-0 left-0 h-[50vh] w-full object-cover"
-      />
-
-      <div className="absolute h-[50vh] inset-0 bg-gradient-to-b from-zinc-950/30 via-zinc-950/45 to-zinc-950" />
+      <HeroBanner heightClass="h-[50vh]" />
 
       <section className="pt-[104px] h-[50vh] relative z-10 flex w-full max-w-7xl flex-col items-center justify-center px-6 mx-12 text-center">
         <h1 className="max-w-4xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl">

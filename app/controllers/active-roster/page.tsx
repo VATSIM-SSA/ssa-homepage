@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Check, ChevronDown, Search, X } from "lucide-react";
-import { Image } from "@/components/ui/image";
+import { HeroBanner } from "@/components/ui/hero-banner";
 import { useUsers } from "@/hooks/useUsers";
 import { titleByRating, ratingLevel } from "@/util/ratings";
 
@@ -121,13 +121,7 @@ export default function Roster() {
 
   return (
     <div className="relative flex min-h-dvh w-full flex-col items-center justify-center overflow-hidden bg-zinc-950 px-4">
-      <Image
-        src="/images/south-african-a340.webp"
-        alt="Hero Banner"
-        className="absolute top-0 left-0 h-[50vh] w-full object-cover"
-      />
-
-      <div className="absolute inset-0 h-[50vh] bg-gradient-to-b from-zinc-950/30 via-zinc-950/45 to-zinc-950" />
+      <HeroBanner heightClass="h-[50vh]" />
 
       <section className="relative z-10 flex h-[50vh] w-full max-w-7xl flex-col items-center justify-center px-6 pt-[104px] text-center">
         <h1 className="max-w-4xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl">
