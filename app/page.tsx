@@ -8,9 +8,10 @@ import { Image } from "@/components/ui/image";
 import { useEvents, type EventBooking } from "@/hooks/useEvents";
 import { useBookings } from "@/hooks/useBookings";
 import { useNews } from "@/hooks/useNews";
+import { useScreenshotWinner } from "@/hooks/useScreenshotWinner";
 import { useStaff } from "@/hooks/useStaff";
 import { LiveMap } from "@/components/map/live-map";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 // News is the forum's Announcements category, so both the "View All" link and
 // the per-card fallback should land there rather than on everything latest.
@@ -30,6 +31,15 @@ const NEWS_PLACEHOLDERS: ReadonlyArray<{ tag: string; src: string }> = [
   { tag: "ATC", src: "/images/announcement-atc.webp" },
   { tag: "Divisional", src: "/images/announcement-divisional.webp" },
 ];
+
+// Shown until the screenshot-competition winner loads, and again if that JSON
+// or the image behind it is unreachable. The credit travels with the file: a
+// hero must never be captioned with someone else's name.
+const HERO_FALLBACK = {
+  src: "/images/south-african-a340.webp",
+  alt: "South African Airways A340",
+  credit: "Nafan - 1708206",
+};
 
 function placeholderForTags(tags: string[]): string | null {
   for (const { tag, src } of NEWS_PLACEHOLDERS) {
@@ -127,7 +137,19 @@ export default function Home() {
     error: bookingsError,
   } = useBookings(8);
   const { news, isLoading: isNewsLoading, error: newsError } = useNews(4);
+  const { winner } = useScreenshotWinner();
   const { staffGroups } = useStaff();
+  // The JSON can name a file that is missing from the bucket, which would leave
+  // a broken hero. Fall back to the shipped image, credit included.
+  const [isHeroBroken, setIsHeroBroken] = useState(false);
+  const hero =
+    winner && !isHeroBroken
+      ? {
+          src: winner.link,
+          alt: `VATSSA screenshot competition winner by ${winner.name}`,
+          credit: winner.name,
+        }
+      : HERO_FALLBACK;
   const staffCodes = useMemo(() => {
     const codes: Record<string, string> = {};
     for (const members of Object.values(staffGroups)) {
@@ -156,14 +178,15 @@ export default function Home() {
   return (
     <div className="px-4 relative flex flex-col min-h-dvh w-full items-center justify-center overflow-hidden bg-zinc-950">
       <img
-        src="/images/south-african-a340.webp"
-        alt="South African Airways A340"
+        src={hero.src}
+        alt={hero.alt}
         className="absolute top-0 left-0 h-dvh w-full object-cover"
+        onError={() => setIsHeroBroken(true)}
       />
 
       <div className="absolute h-screen inset-0 bg-gradient-to-b from-zinc-950/30 via-zinc-950/45 to-zinc-950">
         <p className="absolute bottom-3 right-3 text-zinc-700 text-sm">
-          Image Credit: Nafan - 1708206
+          Image Credit: {hero.credit}
         </p>
       </div>
 

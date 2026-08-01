@@ -95,7 +95,7 @@ Set per environment via the `.env` file on the VPS — **never committed** (excl
 | `APP_URL` | Public base URL for this environment |
 | `STAFF_API` | Staff directory JSON source |
 | `RVAS_API` | Recognised virtual airlines JSON source |
-| `SSC_API` | Screenshot-competition JSON source |
+| `SSC_API` | Screenshot-competition JSON source (`files.vatssa.com/homepage-data/screenshot-winner.json`) — drives the homepage hero image and its credit |
 | `USERS_API` | Roster / online controllers source |
 | `EVENTS_API` | Events source |
 | `POLICIES_API` | Policy documents source |
