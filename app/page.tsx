@@ -256,8 +256,10 @@ export default function Home() {
                       natural height (shrink-0); the excerpt is the one flexible
                       element, so it grows to fill whatever the title's line
                       count left over — a one-line title means more excerpt is
-                      visible. Read More is pinned to the very end, so it lands
-                      at the same height on every card regardless. */}
+                      visible. The excerpt is also line-clamped so an unusually
+                      long one cannot stretch the whole row. Read More is
+                      pinned to the very end, so it lands at the same height on
+                      every card regardless. */}
                   <CardContent className="flex-1">
                     <CardHeader className="shrink-0 overflow-hidden [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical]">
                       {post.title}
@@ -269,7 +271,7 @@ export default function Home() {
                         : ""}{" "}
                       - {formatNewsDate(post.publishedAt)}
                     </CardTimestamp>
-                    <p className="min-h-0 flex-1 overflow-hidden text-zinc-300 text-base">
+                    <p className="min-h-0 flex-1 overflow-hidden [display:-webkit-box] [-webkit-line-clamp:4] [-webkit-box-orient:vertical] text-zinc-300 text-base">
                       {post.excerpt}
                     </p>
                     <a
@@ -334,7 +336,10 @@ export default function Home() {
                 >
                   {/* Same layout as the news cards: excerpt is the one
                       flexible element, Read More is pinned to the end, so
-                      every card in the row bottoms out at the same height. */}
+                      every card in the row bottoms out at the same height.
+                      Unlike news excerpts, event descriptions arrive at full
+                      length from the API, so the same four-line clamp is what
+                      keeps a long description from stretching the row. */}
                   <CardContent className="flex-1">
                     <CardHeader className="shrink-0 overflow-hidden [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical]">
                       {event.title}
@@ -342,7 +347,7 @@ export default function Home() {
                     <CardTimestamp className="shrink-0">
                       {formatEventWindow(event.startTime, event.endTime)} UTC
                     </CardTimestamp>
-                    <p className="min-h-0 flex-1 overflow-hidden text-zinc-300 text-base">
+                    <p className="min-h-0 flex-1 overflow-hidden [display:-webkit-box] [-webkit-line-clamp:4] [-webkit-box-orient:vertical] text-zinc-300 text-base">
                       {getEventDescription(event)}
                     </p>
                     <p className="shrink-0 text-white text-sm hover:underline cursor-pointer">
