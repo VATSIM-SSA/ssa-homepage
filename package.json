@@ -19,7 +19,7 @@
   "comment:overrides": "postcss and sharp reach us only through next and tailwind, so neither can be fixed by bumping a direct dependency. Both are runtime. Delete an entry once the parent ships a version that already satisfies it.",
   "overrides": {
     "postcss": "^8.5.25",
-    "sharp": "^0.35.3"
+    "sharp": "^0.35.4"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
