@@ -131,8 +131,13 @@ export default function VatssaMap({ data }: { data: VatssaData }) {
       map.fitBounds(VIEW_BOUNDS);
     });
 
+    // CARTO requires an API key on basemap tile requests (their free tier
+    // signup at location.carto.com/, Maps API > Basemaps). Without it, tiles
+    // render with an "API KEY REQUIRED" watermark.
+    const cartoApiKey = process.env.NEXT_PUBLIC_CARTO_API_KEY;
+
     L.tileLayer(
-      "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+      `https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png${cartoApiKey ? `?api_key=${cartoApiKey}` : ""}`,
       {
         subdomains: "abcd",
         maxZoom: 20,
