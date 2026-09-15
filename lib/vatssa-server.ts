@@ -225,16 +225,17 @@ export async function loadVatssaData(): Promise<VatssaData> {
   const atc: Atc[] = [];
   const firsOnline = new Set<string>();
 
-  const controllers = (feed.controllers ?? []).filter((c) => c.facility !== 0);
-  // ATIS lives in its own feed array; tag it so we can tell it apart.
-  const atisStations = (feed.atis ?? []).map((c) => ({ ...c, facility: -1 }));
+  // ATIS is left out: the feed's separate atis array is never read, and any
+  // controller callsign ending in _ATIS is skipped.
+  const controllers = (feed.controllers ?? []).filter(
+    (c) => c.facility !== 0 && !c.callsign.endsWith("_ATIS"),
+  );
 
-  for (const station of [...controllers, ...atisStations]) {
+  for (const station of controllers) {
     const prefix = station.callsign.slice(0, 4);
     if (!stations.has(prefix)) continue;
 
-    const isAtis = station.facility === -1 || station.callsign.endsWith("_ATIS");
-    const type = isAtis ? "ATIS" : (FACILITIES[station.facility] ?? "ATC");
+    const type = FACILITIES[station.facility] ?? "ATC";
     const isFirPosition = type === "CTR" || type === "FSS";
 
     const coveredFirs = isFirPosition ? resolveFirs(prefix, firById) : [];
