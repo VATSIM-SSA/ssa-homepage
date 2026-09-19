@@ -37,9 +37,9 @@ export default function MeetingMinutes() {
             {minutes.map((minute) => (
               <div
                 key={minute.id}
-                className="bg-zinc-800 rounded-xl p-6 flex items-center justify-between"
+                className="bg-zinc-800 rounded-xl p-6 flex flex-col gap-3 md:flex-row items-center justify-center md:justify-between"
               >
-                <div className="flex flex-col items-start justify-center">
+                <div className="flex flex-col items-center md:items-start justify-center">
                   <h2 className="text-2xl font-semibold text-white">
                     {minute.title}
                   </h2>
