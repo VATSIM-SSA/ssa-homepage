@@ -13,9 +13,9 @@ import { HeroBanner } from "@/components/ui/hero-banner";
 import { LiveMap } from "@/components/map/live-map";
 import { useMemo } from "react";
 
-// News is the forum's Announcements category, so both the "View All" link and
-// the per-card fallback should land there rather than on everything latest.
-const FORUM_LATEST_URL = "https://forum.vatssa.com/c/announcements/5";
+// The "View All" link and the per-card fallback go to VATSSA News. Visitors who
+// are not logged in only see its public categories there anyway.
+const NEWS_URL = "https://news.vatssa.com/latest";
 
 // Every content section shares one set of classes so the blocks line up on the
 // same width and sit an even distance apart.
@@ -23,28 +23,17 @@ const SECTION_CLASSES =
   "relative z-10 flex w-full max-w-7xl flex-col gap-6 items-center justify-center px-6 py-10 text-center";
 
 // When an announcement carries no image of its own, fall back to a placeholder
-// chosen by its forum tag. Order matters: an ATC-role vacancy is tagged
-// "Vacancies", so that wins over "ATC". "Silent" is a notification modifier,
-// not a type, so it is ignored.
-const NEWS_PLACEHOLDERS: ReadonlyArray<{ tag: string; src: string }> = [
-  { tag: "Vacancies", src: "/images/announcement-vacancy.webp" },
-  { tag: "ATC", src: "/images/announcement-atc.webp" },
-  { tag: "Divisional", src: "/images/announcement-divisional.webp" },
-];
+// chosen by its News category. Only the two public categories reach the
+// homepage: Vacancy Announcements (11) and Divisional Announcements (5).
+const NEWS_PLACEHOLDERS: Readonly<Record<number, string>> = {
+  11: "/images/announcement-vacancy.webp",
+};
 
-// A post with no image and no matching tag still needs media, or its card
-// renders as a bare block of text beside cards that have one. "Divisional" is
-// the neutral one of the three.
+// Divisional, and any post whose category could not be read.
 const NEWS_PLACEHOLDER_DEFAULT = "/images/announcement-divisional.webp";
 
-function placeholderForTags(tags: string[]): string {
-  for (const { tag, src } of NEWS_PLACEHOLDERS) {
-    if (tags.includes(tag)) {
-      return src;
-    }
-  }
-
-  return NEWS_PLACEHOLDER_DEFAULT;
+function placeholderForCategory(categoryId: number | null): string {
+  return (categoryId !== null && NEWS_PLACEHOLDERS[categoryId]) || NEWS_PLACEHOLDER_DEFAULT;
 }
 
 function parseEventDate(value: string) {
@@ -230,8 +219,8 @@ export default function Home() {
         {!isNewsLoading && !newsError && news.length > 0 && (
           <Carousel label="Latest news" itemClassName="md:w-1/2">
             {news.slice(0, 4).map((post) => {
-              const destination = post.url || FORUM_LATEST_URL;
-              const imageSrc = post.image ?? placeholderForTags(post.tags);
+              const destination = post.url || NEWS_URL;
+              const imageSrc = post.image ?? placeholderForCategory(post.categoryId);
 
               return (
                 <Card
@@ -292,7 +281,7 @@ export default function Home() {
 
         <Button
           variant="filled"
-          href={FORUM_LATEST_URL}
+          href={NEWS_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="mt-2"
