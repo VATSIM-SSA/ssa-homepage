@@ -30,7 +30,7 @@ const mobileSections: MobileSection[] = [
       { label: "About VATSSA", route: "/about" },
       { label: "Staff Team", route: "/about/staff-team" },
       { label: "Donate", route: "/donate" },
-      { label: "Our Policies", href: "https://vatssa.com/about/policies" },
+      { label: "Our Policies", route: "/about/policies" },
       { label: "Meeting Minutes", route: "/about/meeting-minutes" },
       { label: "Transfer/Visit", route: "/join" },
     ],
@@ -71,7 +71,7 @@ const mobileSections: MobileSection[] = [
   {
     title: "Our Services",
     links: [
-      { label: "News", href: "https://news.vatssa.com/" },
+      { label: "News Platform", href: "https://news.vatssa.com/" },
       { label: "Training Platform", href: "https://training.vatssa.com/" },
       { label: "Control Centre", href: "https://cc.vatssa.com/" },
       { label: "Pilot Bookings", href: "https://bookings.vatssa.com/" },
@@ -258,7 +258,7 @@ export default function Navbar() {
                 className="flex items-center gap-1"
                 onClick={() => window.open("https://news.vatssa.com/", "_blank")}
               >
-                News <ExternalLink className="h-4 w-auto" />
+                News Platform <ExternalLink className="h-4 w-auto" />
               </DropdownItem>
               <DropdownItem
                 className="flex items-center gap-1"
