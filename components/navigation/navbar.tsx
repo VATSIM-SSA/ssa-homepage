@@ -71,7 +71,7 @@ const mobileSections: MobileSection[] = [
   {
     title: "Our Services",
     links: [
-      { label: "Forum", href: "https://forum.vatssa.com/" },
+      { label: "News", href: "https://news.vatssa.com/" },
       { label: "Training Platform", href: "https://training.vatssa.com/" },
       { label: "Control Centre", href: "https://cc.vatssa.com/" },
       { label: "Pilot Bookings", href: "https://bookings.vatssa.com/" },
@@ -256,9 +256,9 @@ export default function Navbar() {
             <Dropdown text="Our Services" chevron={true} variant="ghost">
               <DropdownItem
                 className="flex items-center gap-1"
-                onClick={() => window.open("https://forum.vatssa.com/", "_blank")}
+                onClick={() => window.open("https://news.vatssa.com/", "_blank")}
               >
-                Forum <ExternalLink className="h-4 w-auto" />
+                News <ExternalLink className="h-4 w-auto" />
               </DropdownItem>
               <DropdownItem
                 className="flex items-center gap-1"
